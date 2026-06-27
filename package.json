@@ -1,0 +1,15 @@
+{
+  "name": "ametanami-cauldron",
+  "version": "1.0.0",
+  "description": "Telegram palette bot with atmospheric lore",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "setup": "node downloadFonts.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.57",
+    "dotenv": "^16.4.5",
+    "telegraf": "^4.16.3"
+  }
+}
