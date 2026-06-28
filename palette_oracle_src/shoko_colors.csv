@@ -1,1029 +1,1165 @@
-name_en,hex,r,g,b
-Apricot,#FBCEB1,251,206,177
-Apricot Crayola,#FDD9B5,253,217,181
-Agate gray,#B5B8B1,181,184,177
+﻿name_en,hex,r,g,b
+Solar amber,#FBCEB1,251,206,177
+Frost apricot,#FDD9B5,253,217,181
+Elven agate,#B5B8B1,181,184,177
 Aquamarine,#7FFFD4,127,255,212
-Aquamarine Crayola,#78DBE2,120,219,226
-Alizarin red,#E32636,227,38,54
+Frost aquamarine,#78DBE2,120,219,226
+Dragon Blood,#E32636,227,38,54
 Scarlet,#FF2400,255,36,0
 Amaranth deep purple,#9F2B68,159,43,104
 Amaranth purple,#AB274F,171,39,79
-Amaranth pink,#F19CBB,241,156,187
+Pixie Nectar,#F19CBB,241,156,187
 Amaranth,#E52B50,229,43,80
 Amaranth magenta,#ED3CCA,237,60,202
 Amaranth light cherry,#CD2682,205,38,130
-American pink,#FF033E,255,3,62
-Amethyst,#9966CC,153,102,204
-Antique brass,#CD9575,205,149,117
-Anthracite gray,#293133,41,49,51
-Anthracite,#464451,70,68,81
-Harlequin,#44944A,68,148,74
-Slate gray,#2F4F4F,47,79,79
-Slate blue,#6A5ACD,106,90,205
-Grandma's apples,#A8E4A0,168,228,160
-Basalt gray,#4E5754,78,87,84
-Eggplant Crayola,#614051,97,64,81
-Eggplant,#990066,153,0,102
-Eggplant Crayola,#6E5160,110,81,96
-Banana mania,#FAE7B5,250,231,181
-Periwinkle Crayola,#C5D0E6,197,208,230
-Periwinkle,#CCCCFF,204,204,255
-Nymph Blush,#FAEEDD,250,238,221
-Beige-brown,#79553D,121,85,61
-Beige-red,#C1876B,193,135,107
-Beige gray,#6D6552,109,101,82
-Beige,#F5F5DC,245,245,220
-White aluminum,#A5A5A5,165,165,165
-White-green,#BDECB6,189,236,182
-Snow-white,#FFFAFA,255,250,250
-White,#FFFFFF,255,255,255
-White Navajo,#FFDEAD,255,222,173
-White-antique,#FAEBD7,250,235,215
-Prussian blue,#003153,0,49,83
-Turquoise Blue Crayola,#77DDE7,119,221,231
-Turquoise green,#1E5945,30,89,69
-Turquoise blue,#3F888F,63,136,143
-Turquoise,#30D5C8,48,213,200
-Biscuit,#FFE4C4,255,228,196
-Bismarck furioso,#A5260A,165,38,10
-Bistre,#3D2B1F,61,43,31
-Pale pinkish,#FFCBDB,255,203,219
-Pale cornflower blue,#ABCDEF,171,205,239
-Pale yellow,#FFDB8B,255,219,139
-Pale green gray,#8D917A,141,145,122
-Pale green,#89AC76,137,172,118
-Pale golden,#EEE8AA,238,232,170
-Pale carmine,#B03F35,176,63,53
-Pale chestnut,#DDADAF,221,173,175
-Pale brown,#755C48,117,92,72
-Pale sand,#DABDAB,218,189,171
-Pale purple,#AE848B,174,132,139
-Pale pink,#FADADD,250,218,221
-Pale blue,#AFEEEE,175,238,238
-Pale purple,#957B8D,149,123,141
-Pale spring bud,#ECEBBD,236,235,189
-Pale yellowish green,#F0D698,240,214,152
-Pale yellowish pink,#FFC8A8,255,200,168
-Pale greenish yellow,#FFDF84,255,223,132
-Pale green,#98FB98,152,251,152
-Pale reddish purple,#AC7580,172,117,128
-Pale orange-yellow,#FFCA86,255,202,134
-Pale purple pink,#FDBDBA,253,189,186
-Pale purple blue,#8A7F8E,138,127,142
-Pale taupe,#BC987E,188,152,126
-Pale blue,#919192,145,145,146
-Pale violet red,#D87093,216,112,147
-Brilliant yellow-green,#CED23A,206,210,58
-Brilliant yellowish green,#8CCB5E,140,203,94
-Brilliant yellow,#FFCF40,255,207,64
-Brilliant greenish yellow,#FFDC33,255,220,51
-Brilliant greenish blue,#2A8D9C,42,141,156
-Brilliant Green,#47A76A,71,167,106
-Shiny orange,#FFB841,255,184,65
-Shiny purple pink,#FF97BB,255,151,187
-Brilliant purple blue,#62639B,98,99,155
-Brilliant purple,#DD80CC,221,128,204
-Brilliant bluish green,#009B76,0,155,118
-Shiny Blue,#4285B4,66,133,180
-Shiny purple,#755D9A,117,93,154
-Flea belly,#4E1609,78,22,9
-Beaver,#9F8170,159,129,112
-Bulgarian pink,#480607,72,6,7
-Bolotny,#ACB78E,172,183,142
+Vampire Rose,#FF033E,255,3,62
+Cursed amethyst,#9966CC,153,102,204
+Relic brass,#CD9575,205,149,117
+Obsidian dust,#293133,41,49,51
+Iron dusk,#464451,70,68,81
+Pixie Venom,#44944A,68,148,74
+Abyssal Slate,#2F4F4F,47,79,79
+Runic Slate,#6A5ACD,106,90,205
+Orchard wisp,#A8E4A0,168,228,160
+Basalt golem,#4E5754,78,87,84
+Twilight shroud,#614051,97,64,81
+Midnight velvet,#990066,153,0,102
+Drowned orchid,#6E5160,110,81,96
+Soft parchment,#FAE7B5,250,231,181
+Pale periwinkle,#C5D0E6,197,208,230
+Ether Mist,#CCCCFF,204,204,255
+Nymph blush,#FAEEDD,250,238,221
+Grave dust,#79553D,121,85,61
+Amber clay,#C1876B,193,135,107
+Sand dusk,#6D6552,109,101,82
+Sand whisper,#F5F5DC,245,245,220
+Quicksilver veil,#A5A5A5,165,165,165
+Pale sage,#BDECB6,189,236,182
+Winter hush,#FFFAFA,255,250,250
+Moonlight veil,#FFFFFF,255,255,255
+Desert mirage,#FFDEAD,255,222,173
+Ivory blessing,#FAEBD7,250,235,215
+Leviathan Shroud,#003153,0,49,83
+Turquoise sky mist,#77DDE7,119,221,231
+Deep sea jade,#1E5945,30,89,69
+Siren azure,#3F888F,63,136,143
+Bright turquoise,#30D5C8,48,213,200
+Pixie dust,#FFE4C4,255,228,196
+Phoenix fury,#A5260A,165,38,10
+Dust bark,#3D2B1F,61,43,31
+Worn pinkish,#FFCBDB,255,203,219
+Frost Echo,#ABCDEF,171,205,239
+Siren Sand,#FFDB8B,255,219,139
+Druid moss,#8D917A,141,145,122
+Faded sage,#89AC76,137,172,118
+Faded golden,#EEE8AA,238,232,170
+Faded carmine,#B03F35,176,63,53
+Faded chestnut,#DDADAF,221,173,175
+Lich Crypt,#755C48,117,92,72
+Waning sand,#DABDAB,218,189,171
+Faded rose mist,#AE848B,174,132,139
+Nymph Veil,#FADADD,250,218,221
+Hollow cyan,#AFEEEE,175,238,238
+Faded mauve,#957B8D,149,123,141
+Ashen spring bud,#ECEBBD,236,235,189
+Ancient parchment,#F0D698,240,214,152
+Dawn glow,#FFC8A8,255,200,168
+Fairy lantern,#FFDF84,255,223,132
+Faded spring,#98FB98,152,251,152
+Withered orchid,#AC7580,172,117,128
+Solar flare,#FFCA86,255,202,134
+Withered purple pink,#FDBDBA,253,189,186
+Eclipse shadow,#8A7F8E,138,127,142
+Lost taupe,#BC987E,188,152,126
+Ghost haze,#919192,145,145,146
+Astral rose,#D87093,216,112,147
+Acid spore,#CED23A,206,210,58
+Spring bloom,#8CCB5E,140,203,94
+Sunforge Gold,#FFCF40,255,207,64
+Star spark,#FFDC33,255,220,51
+Astral tide,#2A8D9C,42,141,156
+Brilliant wild grove,#47A76A,71,167,106
+Hellfire Spark,#FFB841,255,184,65
+Astral Silk,#FF97BB,255,151,187
+Mage violet,#62639B,98,99,155
+Void Prism,#DD80CC,221,128,204
+Wyrm scale,#009B76,0,155,118
+Shiny deep sky,#4285B4,66,133,180
+Arcane Veil,#755D9A,117,93,154
+Autumn bark,#4E1609,78,22,9
+Runed bark,#9F8170,159,129,112
+Ancient blood,#480607,72,6,7
+Marsh whisper,#ACB78E,172,183,142
 Burgundy purple,#641C34,100,28,52
 Burgundy,#B00000,176,0,0
-Abdel-Kerim's beards,#D5D5D5,213,213,213
-Canvas gray,#4C514A,76,81,74
-Diamond blue,#3E5F8A,62,95,138
-Diamond orange yellow,#FFB02E,255,176,46
-Bronze,#CD7F32,205,127,50
+Moon mist,#D5D5D5,213,213,213
+Ranger cloak,#4C514A,76,81,74
+Mana Ice,#3E5F8A,62,95,138
+Sunforge Amber,#FFB02E,255,176,46
+Tarnished Alloy,#CD7F32,205,127,50
 Burgundian,#900020,144,0,32
-Brown,#45161C,69,22,28
-Bottle green,#343B29,52,59,41
-Vanilla,#D5713F,213,113,63
-Cornflower,#6495ED,100,149,237
-Cornflower Crayola,#9ACEEB,154,206,235
-Verdepeshevy,#DAD871,218,216,113
-Verdepomovy,#34C924,52,201,36
-Heather purple,#DE4C8A,222,76,138
-Spring green,#00FF7F,0,255,127
-Spring green Crayola,#ECEABE,236,234,190
+Alchemist vial,#343B29,52,59,41
+Nomad hearth,#D5713F,213,113,63
+Mana Spark,#6495ED,100,149,237
+Frost cornflower,#9ACEEB,154,206,235
+Olive shadow veil,#DAD871,218,216,113
+Spring leaf,#34C924,52,201,36
+Heather rose,#DE4C8A,222,76,138
+Alchemist Mint,#00FF7F,0,255,127
+Sylph wing,#ECEABE,236,234,190
 Spring bud,#A7FC00,167,252,0
-Byzantine,#BD33A4,189,51,164
-Byzantium,#702963,112,41,99
-Wine red,#5E2129,94,33,41
-Rifle green,#414833,65,72,51
+Archmage Robe,#BD33A4,189,51,164
+Sorcerer Veil,#702963,112,41,99
+Sacrificial wine,#5E2129,94,33,41
+Shadow Wood,#414833,65,72,51
 Cherry,#911E42,145,30,66
-water blue,#256D7B,37,109,123
-Waters of Bondi Beach,#0095B6,0,149,182
+Tide stone,#256D7B,37,109,123
+Abyssal tide,#0095B6,0,149,182
 Sunrise,#FFCF48,255,207,72
-Burnt orange,#CC5500,204,85,0
-Pebble gray,#B8B799,184,183,153
-Gainsborough,#DCDCDC,220,220,220
+Forge Embers,#CC5500,204,85,0
+Rune stone,#B8B799,184,183,153
+Astral mist,#DCDCDC,220,220,220
 Heliotrope,#DF73FF,223,115,255
 Dahlia yellow,#F3A505,243,165,5
-Clay brown,#734222,115,66,34
+Golem soil,#734222,115,66,34
 Wisteria,#C9A0DC,201,160,220
-Wisteria Crayola,#CDA4DE,205,164,222
-Deep fuchsia Crayola,#C154C1,193,84,193
-Deep yellow-green,#425E17,66,94,23
-Deep yellowish green,#00541F,0,84,31
-Deep yellowish brown,#593315,89,51,21
-Deep yellowish pink,#F64A46,246,74,70
-Deep yellow,#B57900,181,121,0
-Deep greenish yellow,#9F8200,159,130,0
-Deep green,#004524,0,69,36
-Deep carmine pink,#EF3038,239,48,56
-Deep carmine,#A9203E,169,32,62
-Deep chestnut Crayola,#B94E48,185,78,72
-Deep coral,#FF4040,255,64,64
-Deep brown,#4D220E,77,34,14
-Deep reddish brown,#490005,73,0,5
-Deep reddish orange,#A91D11,169,29,17
-Deep reddish purple,#641349,100,19,73
-Deep red,#7B001C,123,0,28
-Deep olive green,#142300,20,35,0
-Deep orange-yellow,#D76E00,215,110,0
-Deep orange,#C34D0A,195,77,10
-Deep purple-red,#6F0035,111,0,53
-Deep purple pink,#EB5284,235,82,132
-Deep purple blue,#1A153F,26,21,63
-Deep purple,#531A50,83,26,80
-Deep pink,#FF1493,255,20,147
-Deep bluish green,#00382B,0,56,43
-Deep blue,#002F55,0,47,85
-Deep purple-black,#240935,36,9,53
-Deep purple,#423189,66,49,137
-Dove blue,#606E8C,96,110,140
-Blue,#00BFFF,0,191,255
-Bluebell Crayola,#A2A2D0,162,162,208
-Blue Crayola,#80DAEB,128,218,235
-Gentian blue,#0E294B,14,41,75
-mountain meadow,#30BA8F,48,186,143
-Mustard,#FFDB58,255,219,88
+Smoke wisteria,#CDA4DE,205,164,222
+Nebula petal,#C154C1,193,84,193
+Venom bark,#425E17,66,94,23
+Deepwood moss,#00541F,0,84,31
+Primal amber,#593315,89,51,21
+Dragon flame,#F64A46,246,74,70
+Guild gold,#B57900,181,121,0
+Basilisk aura,#9F8200,159,130,0
+Ancient forest,#004524,0,69,36
+Seraph blush,#EF3038,239,48,56
+Sanguine crest,#A9203E,169,32,62
+Autumn hearth,#B94E48,185,78,72
+Veiled coral,#FF4040,255,64,64
+Catacomb earth,#4D220E,77,34,14
+Abyssal claret,#490005,73,0,5
+Wyvern ember,#A91D11,169,29,17
+Void orchid,#641349,100,19,73
+Sanguine Veil,#7B001C,123,0,28
+Swamplord cloak,#142300,20,35,0
+Solar chariot,#D76E00,215,110,0
+Magma core,#C34D0A,195,77,10
+Ritual wine,#6F0035,111,0,53
+Veiled purple pink,#EB5284,235,82,132
+Abyssal indigo,#1A153F,26,21,63
+Shadow crown,#531A50,83,26,80
+Pixie neon,#FF1493,255,20,147
+Kraken depths,#00382B,0,56,43
+Ocean chasm,#002F55,0,47,85
+Cursed veil,#240935,36,9,53
+Mage star,#423189,66,49,137
+Gloom ether,#606E8C,96,110,140
+Glacial Bloom,#A2A2D0,162,162,208
+Frost ether,#80DAEB,128,218,235
+Deep leviathan,#0E294B,14,41,75
+Moorland jade,#30BA8F,48,186,143
+Aurelin spark,#FFDB58,255,219,88
 Bittersweet,#FD7C6E,253,124,110
-Pomegranate,#F34723,243,71,35
-Granite Gray,#2F353B,47,53,59
-Graphite black,#1C1C1C,28,28,28
-Graphite gray,#474A51,71,74,81
-Grideperleft,#C7D0CC,199,208,204
-Georgian pink,#D71868,215,24,104
-Pear green,#D1E231,209,226,49
-Pear,#EFD334,239,211,52
+Phoenix heart,#F34723,243,71,35
+Gargoyle hide,#2F353B,47,53,59
+Obsidian void,#1C1C1C,28,28,28
+Shadowed steel,#474A51,71,74,81
+Elven sigh,#C7D0CC,199,208,204
+Crimson Pact,#D71868,215,24,104
+Acid slime,#D1E231,209,226,49
+Elven nectar,#EFD334,239,211,52
 Gamboge,#E49B0F,228,155,15
-Caterpillar,#B2EC5D,178,236,93
-Dartmouth green,#00693E,0,105,62
-Jazz Jam,#CA3767,202,55,103
-Denim blue,#1560BD,21,96,189
-Wild Strawberry Crayola,#FF43A4,255,67,164
-Wild watermelon Crayola,#FC6C85,252,108,133
-Wild Blue Crayola,#A2ADD0,162,173,208
-Smoky white,#F5F5F5,245,245,245
-Melon yellow,#F4A900,244,169,0
-Melon Crayola,#FDBCB4,253,188,180
-Iron gray,#434B4D,67,75,77
-Yellow sulfur,#EDFF21,237,255,33
-Yellow ivory,#E1CC4F,225,204,79
-Yellow-green,#9ACD32,154,205,50
-Yellow-green Crayola,#C5E384,197,227,132
-Yellow-gold,#CDA434,205,164,52
-Yellow-olive,#47402E,71,64,46
-Yellow-orange,#ED760E,237,118,14
-Yellow-orange Crayola,#FFAE42,255,174,66
-Yellow-peach,#FADFAD,250,223,173
-Yellow-pink,#FFE4B2,255,228,178
-Yellow-gray,#8F8B66,143,139,102
-Yellowish white,#FFE2B7,255,226,183
-Yellowish gray,#CAA885,202,168,133
-Yellow,#FFFF00,255,255,0
-Yellow Crayola,#FCE883,252,232,131
-Yellow broom,#D6AE01,214,174,1
-Pearl white,#EAE6CA,234,230,202
-Protective blue,#1E90FF,30,144,255
-The stars are shocked,#FF47CA,255,71,202
-Green lawn,#7CFC00,124,252,0
-Green pine,#01796F,1,121,111
-Green Crayola Pine,#158078,21,128,120
-Green-beige,#BEBD7F,190,189,127
-Green-yellow,#ADFF2F,173,255,47
-Green-yellow Crayola,#F0E891,240,232,145
-Green-brown,#826C34,130,108,52
-Lime green,#BFFF00,191,255,0
-Green-gray,#4D5645,77,86,69
-Green-blue,#1F3438,31,52,56
-Green-blue Crayola,#1164B4,17,100,180
-Greenish white,#F5E6CB,245,230,203
-Greenish gray,#7A7666,122,118,102
-Greenish black,#181513,24,21,19
-Zeleno-morskoy,#2E8B57,46,139,87
-Green Jungle Crayola,#3BB08F,59,176,143
-Green Jungle Crayola 1990,#29AB87,41,171,135
-Green,#008000,0,128,0
-Green Crayola,#1CAC78,28,172,120
-Green lichen,#ADDFAD,173,223,173
-Deep Forest,#006633,0,102,51
-Green moss,#2F4538,47,69,56
-Green eagle,#004953,0,73,83
-green fern,#4F7942,79,121,66
-Dark green,#203A27,32,58,39
-Green shamrock,#009A63,0,154,99
-Green tea,#D0F0C0,208,240,192
-Goldenrod Crayola,#FCD975,252,217,117
+Sprite wing,#B2EC5D,178,236,93
+Wyrm Shard,#00693E,0,105,62
+Siren song,#CA3767,202,55,103
+Leviathan Deep,#1560BD,21,96,189
+Fae blush,#FF43A4,255,67,164
+Mermaid blush,#FC6C85,252,108,133
+Frost wild sky,#A2ADD0,162,173,208
+Phantom shroud,#F5F5F5,245,245,245
+Desert sun,#F4A900,244,169,0
+Frost petal,#FDBCB4,253,188,180
+Golem steel,#434B4D,67,75,77
+Sunfall gold sulfur,#EDFF21,237,255,33
+Sunfall gold ivory,#E1CC4F,225,204,79
+Elven meadow,#9ACD32,154,205,50
+Sprite moss,#C5E384,197,227,132
+Relic gold,#CDA434,205,164,52
+Druid bark,#47402E,71,64,46
+Dragon spark,#ED760E,237,118,14
+Ember flare,#FFAE42,255,174,66
+Nectar glow,#FADFAD,250,223,173
+Starlight silk,#FFE4B2,255,228,178
+Ancient dust,#8F8B66,143,139,102
+Angelic satin,#FFE2B7,255,226,183
+Nomad sand,#CAA885,202,168,133
+Sunfall gold,#FFFF00,255,255,0
+Sunfall gold wisp,#FCE883,252,232,131
+Sunfall gold broom,#D6AE01,214,174,1
+Ivory pearl,#EAE6CA,234,230,202
+Stellar Gaze,#1E90FF,30,144,255
+Starlight bloom,#FF47CA,255,71,202
+Wild grove blaze,#7CFC00,124,252,0
+Wild grove pine,#01796F,1,121,111
+Wild pine veil,#158078,21,128,120
+Lichen veil,#BEBD7F,190,189,127
+Acid spark,#ADFF2F,173,255,47
+Pixie lantern,#F0E891,240,232,145
+Swamp mud,#826C34,130,108,52
+Acid lime,#BFFF00,191,255,0
+Moss cloak,#4D5645,77,86,69
+Abyssal chasm,#1F3438,31,52,56
+Siren tide,#1164B4,17,100,180
+Warm parchment,#F5E6CB,245,230,203
+Crypt stone,#7A7666,122,118,102
+Obsidian core,#181513,24,21,19
+Ocean moss,#2E8B57,46,139,87
+Wild grove mist,#3BB08F,59,176,143
+Wild grove bloom,#29AB87,41,171,135
+Wild grove,#008000,0,128,0
+Wild grove veil,#1CAC78,28,172,120
+Witch moss,#ADDFAD,173,223,173
+Velvet forest,#006633,0,102,51
+Wild moss,#2F4538,47,69,56
+Wild grove eagle,#004953,0,73,83
+Shadow Woods,#4F7942,79,121,66
+Shadow forest,#203A27,32,58,39
+Wild grove shamrock,#009A63,0,154,99
+Wild grove tea,#D0F0C0,208,240,192
+Bone goldenrod,#FCD975,252,217,117
 Golden birch,#DAA520,218,165,32
 Golden chestnut,#712F26,113,47,38
 Golden,#FFD700,255,215,0
-Golden Crayola,#E7C697,231,198,151
+Gilded Parchment,#E7C697,231,198,151
 Willow brown,#321414,50,20,20
-Marl,#79443B,121,68,59
+Sunken Silt,#79443B,121,68,59
 Emerald green,#287233,40,114,51
-Emerald,#50C878,80,200,120
-Indigo,#4B0082,75,0,130
-Indigo Crayola,#5D76CB,93,118,203
-Indian green,#138808,19,136,8
-Indian Red,#CD5C5C,205,92,92
-Irish green,#4CBB17,76,187,23
+Bright emerald,#50C878,80,200,120
+Void Call,#4B0082,75,0,130
+Smoke indigo,#5D76CB,93,118,203
+Ancient Grove,#138808,19,136,8
+Salamander Ash,#CD5C5C,205,92,92
+Clover Curse,#4CBB17,76,187,23
 June bud,#BDDA57,189,218,87
-Camelopard,#A25F2A,162,95,42
-Stone gray,#8B8C7A,139,140,122
-Canary,#FFFF99,255,255,153
-Capri blue,#1B5583,27,85,131
-Cardinal,#C41E3A,196,30,58
-Caribbean green,#1CD3A2,28,211,162
+Griffin hide,#A25F2A,162,95,42
+Gargoyle gray,#8B8C7A,139,140,122
+Pixie spark,#FFFF99,255,255,153
+Starlight Glaze,#1B5583,27,85,131
+Bloodline Pact,#C41E3A,196,30,58
+Siren Shallow,#1CD3A2,28,211,162
 Carmine,#960018,150,0,24
-Carmine red,#A2231D,162,35,29
+Deep carmine red,#A2231D,162,35,29
 Carmine pink,#EB4C42,235,76,66
-Carmine red,#FF0033,255,0,51
-Curry yellow,#9D9101,157,145,1
+Bright carmine red,#FF0033,255,0,51
+Desert gold,#9D9101,157,145,1
 Chestnut brown,#633A34,99,58,52
-Chestnut Crayola,#BC5D58,188,93,88
-Quartz,#99958C,153,149,140
-Quartz gray,#6C6960,108,105,96
-Cinnabar,#FF4D00,255,77,0
-Cinnabar,#E34234,227,66,52
-Brick red,#CB4154,203,65,84
-Brick,#884535,136,69,53
+Autumn clay,#BC5D58,188,93,88
+Citadel dust,#99958C,153,149,140
+Gargoyle stone,#6C6960,108,105,96
+Bright cinnabar,#FF4D00,255,77,0
+Pale cinnabar,#E34234,227,66,52
+Hearth fire,#CB4154,203,65,84
+Ruin brick,#884535,136,69,53
 Maple green,#507D2A,80,125,42
-Strawberry red,#D53032,213,48,50
-Cobalt blue,#0047AB,0,71,171
-Cobalt blue,#1E213D,30,33,61
-Buffalo leather,#F0DC82,240,220,130
-orange peel,#FFA000,255,160,0
+Ruby spark,#D53032,213,48,50
+Runic Cobalt,#0047AB,0,71,171
+Nomad hide,#F0DC82,240,220,130
+Amber rind,#FFA000,255,160,0
 Coral red,#B32821,179,40,33
-Coral,#FF7F50,255,127,80
-Cordovan,#893F45,137,63,69
-Brownish orange,#B15124,177,81,36
-Brownish pink,#CD9A7B,205,154,123
-Brownish gray,#503D33,80,61,51
-Brownish black,#140F0B,20,15,11
-Brown beige,#8A6642,138,102,66
-Brown-burgundy,#A52A2A,165,42,42
-Withered Gold,#C19A6B,193,154,107
-Brown-green,#39352A,57,53,42
-Brown-red,#781F19,120,31,25
-Brown-raspberry,#800000,128,0,0
-Brown Raspberry Crayola,#C8385A,200,56,90
-Brown-olive,#25221B,37,34,27
-Brown gray,#464531,70,69,49
-Brown,#964B00,150,75,0
-Brown Crayola,#B4674D,180,103,77
-Brown dark,#35170C,53,23,12
-Old Leather,#8B4513,139,69,19
+Sunken Amber,#FF7F50,255,127,80
+Wine bark,#893F45,137,63,69
+Ember bark,#B15124,177,81,36
+Fae silk,#CD9A7B,205,154,123
+Crypt dust,#503D33,80,61,51
+Abyss soil,#140F0B,20,15,11
+Druid earth,#8A6642,138,102,66
+Guild velvet,#A52A2A,165,42,42
+Withered golden dawn,#C19A6B,193,154,107
+Swamp mire,#39352A,57,53,42
+Ritual gore,#781F19,120,31,25
+Blood wine,#800000,128,0,0
+Earth ember raspberry,#C8385A,200,56,90
+Necromancer cloak,#25221B,37,34,27
+Mossy slate,#464531,70,69,49
+Primal roots,#964B00,150,75,0
+Terracotta veil,#B4674D,180,103,77
+Catacomb soil,#35170C,53,23,12
+Ranger leather,#8B4513,139,69,19
 Cinnamon,#7B3F00,123,63,0
-Royal fuchsia,#CA2C92,202,44,146
-Royal Purple Crayola,#7851A9,120,81,169
-Royal Blue,#4169E1,65,105,225
+Gorgon Orchid,#CA2C92,202,44,146
+Royal velvet bloom,#7851A9,120,81,169
+Royal deep sky,#4169E1,65,105,225
 Space cream,#FFF8E7,255,248,231
-Space,#414A4C,65,74,76
-Coffee,#442D25,68,45,37
-Crayola Apricot,#FDD5B1,253,213,177
-Red brown-orange,#CD5700,205,87,0
-Red-yellowish-brown,#80461B,128,70,27
-Red-brown,#592321,89,35,33
-Red-orange,#C93C20,201,60,32
-Red-orange Crayola,#FF5349,255,83,73
-Red-lilac,#6D3F5B,109,63,91
-Red-violet,#922B3E,146,43,62
-Red-violet Crayola,#C0448F,192,68,143
-Reddish brown,#755A57,117,90,87
-Reddish gray,#8B6C62,139,108,98
-Reddish black,#1E1112,30,17,18
+Cosmic Ash,#414A4C,65,74,76
+Roasted amber,#442D25,68,45,37
+Nectar Silk,#FDD5B1,253,213,177
+Pyromancer fire,#CD5700,205,87,0
+Wild bark,#80461B,128,70,27
+Sanguine earth,#592321,89,35,33
+Visceral river,#C93C20,201,60,32
+Ember howl,#FF5349,255,83,73
+Astral petal,#6D3F5B,109,63,91
+Mystic orchid,#922B3E,146,43,62
+Dried mulberry,#C0448F,192,68,143
+Faded ritual,#755A57,117,90,87
+Ashen slate,#8B6C62,139,108,98
+Vampire core,#1E1112,30,17,18
 Mahogany,#C04000,192,64,0
-Mahogany Crayola,#CD4A4C,205,74,76
-Red,#FF0000,255,0,0
-Red Crayola,#EE204D,238,32,77
-Red sand,#F4A460,244,164,96
-Creamy yellow,#FFFDD0,255,253,208
-Cream,#FDF4E3,253,244,227
-Screaming green,#76FF7A,118,255,122
-Cool Pink Crayola,#FB607F,251,96,127
-Corn yellow,#E4A010,228,160,16
-Corn,#FBEC5D,251,236,93
-Lavender,#E6E6FA,230,230,250
-Lavender Crayola,#FCB4D5,252,180,213
+Clay mahogany,#CD4A4C,205,74,76
+Crimson flame,#FF0000,255,0,0
+Crimson flame dusk,#EE204D,238,32,77
+Crimson flame sand,#F4A460,244,164,96
+Celestial cream,#FFFDD0,255,253,208
+Ivory mist,#FDF4E3,253,244,227
+Banshee green,#76FF7A,118,255,122
+Frozen rose bloom,#FB607F,251,96,127
+Solar crest,#E4A010,228,160,16
+Pixie gold,#FBEC5D,251,236,93
+Moonlit ripple,#E6E6FA,230,230,250
+Frost lavender,#FCB4D5,252,180,213
 Lavender pink,#FBA0E3,251,160,227
-Laser lemon,#FEFE22,254,254,34
-Azure Gray,#007BA7,0,123,167
+Sunbeam sigil,#FEFE22,254,254,34
+Cerulean deep sky,#007BA7,0,123,167
 Azure blue,#025669,2,86,105
-Azure,#007FFF,0,127,255
-Azure Crayola,#1DACD6,29,172,214
-Lime,#00FF00,0,255,0
-Lime green,#32CD32,50,205,50
-Manatee,#979AAA,151,154,170
-Brass,#B5A642,181,166,66
-Timber wolf,#DBD7D2,219,215,210
+Celestial Core,#007FFF,0,127,255
+Astral azure,#1DACD6,29,172,214
+Caustic Spore,#00FF00,0,255,0
+Moss lime,#32CD32,50,205,50
+Mist weaver,#979AAA,151,154,170
+Dwarven Ingots,#B5A642,181,166,66
+Bleached shroud,#DBD7D2,219,215,210
 Forest green,#228B22,34,139,34
-Liverny,#534B4F,83,75,79
-Lilac,#DB7093,219,112,147
-Lemon yellow,#C7B446,199,180,70
-Lemon yellow Crayola,#FFF44F,255,244,79
-Lemon cream,#FFFACD,255,250,205
-Citric,#FDE910,253,233,16
+Cinder ash,#534B4F,83,75,79
+Alchemist amber,#C7B446,199,180,70
+Star sigil,#FFF44F,255,244,79
+Fairy silk,#FFFACD,255,250,205
+Sulphur flare,#FDE910,253,233,16
 Leaf green,#2D572C,45,87,44
-Leafy Green Crayola,#6DAE81,109,174,129
-Salmon red,#D95030,217,80,48
-Salmon orange,#E55137,229,81,55
-Salmon,#FF8C69,255,140,105
-Salmon Crayola,#FF9BAA,255,155,170
-Linen,#FAF0E6,250,240,230
-Fluorescent red,#F80000,248,0,0
-Fluorescent bright orange,#FFA420,255,164,32
-Fainted frogs,#7B917B,123,145,123
+Wild grove leaf,#6DAE81,109,174,129
+Coral flame,#D95030,217,80,48
+Phoenix spark,#E55137,229,81,55
+Mermaid silk,#FF8C69,255,140,105
+Pale salmon,#FF9BAA,255,155,170
+Shrouded bone,#FAF0E6,250,240,230
+Ether flame,#F80000,248,0,0
+Dragon core,#FFA420,255,164,32
+Moss veil,#7B917B,123,145,123
 Magic mint,#AAF0D1,170,240,209
-Magnolia,#F8F4FF,248,244,255
-Magenta Crayola,#F664AF,246,100,175
-Fuchsia,#FF00FF,255,0,255
+Moon petal,#F8F4FF,248,244,255
+Frost magenta,#F664AF,246,100,175
+Pure fuchsia,#FF00FF,255,0,255
 Maize,#EDD19C,237,209,156
-May Green,#4C9141,76,145,65
-Macaroni and cheese,#FFBD88,255,189,136
+Spring grove,#4C9141,76,145,65
+Golden nectar,#FFBD88,255,189,136
 Malachite,#0BDA51,11,218,81
 Raspberry red,#C51D34,197,29,52
 Raspberry pink,#B3446C,179,68,108
 Crimson,#DC143C,220,20,60
-Mango tango,#FF8243,255,130,67
-Tangerine,#F28500,242,133,0
-Marengo,#4C5866,76,88,102
+Amber surge,#FF8243,255,130,67
+Ember sun,#F28500,242,133,0
+Slate harbor,#4C5866,76,88,102
 Mahogany brown,#4C2F27,76,47,39
-Copper brown,#8E402A,142,64,42
-Copper Pink,#996666,153,102,102
+Primal Ochre,#8E402A,142,64,42
+Copper rose bloom,#996666,153,102,102
 Copper,#B87333,184,115,51
-Brass Crayola,#DD9475,221,148,117
+Frost brass,#DD9475,221,148,117
 Honey yellow,#A98307,169,131,7
-Honey,#F0FFF0,240,255,240
-International Orange,#FF4F00,255,79,0
-Dead Indigo,#00416A,0,65,106
-Almond Crayola,#EFDECD,239,222,205
+Elven dew,#F0FFF0,240,255,240
+International ember glow,#FF4F00,255,79,0
+Dead navy,#00416A,0,65,106
+Pale parchment,#EFDECD,239,222,205
 Myrtle,#21421E,33,66,30
 Mauvein,#EF0097,239,0,151
-Fashionable fuchsia,#F400A1,244,0,161
-Moccasin,#FFE4B5,255,228,181
-Wet tropical forest,#17806D,23,128,109
-Moderate green sea,#3CB371,60,179,113
-Carrot,#F36223,243,98,35
+Nebula bloom,#F400A1,244,0,161
+Dune silk,#FFE4B5,255,228,181
+Overgrown Crypt,#17806D,23,128,109
+Mid green sea,#3CB371,60,179,113
+Fire sigil,#F36223,243,98,35
 Sea green,#54FF9F,84,255,159
-Sea Green Crayola,#9FE2BF,159,226,191
+Sea grove mist,#9FE2BF,159,226,191
 Moray,#1C6B72,28,107,114
-Muslim green,#009900,0,153,0
-Mouse gray,#646B63,100,107,99
-Mint,#98FF98,152,255,152
+Forest pulse,#009900,0,153,0
+Tomb dust,#646B63,100,107,99
+Jade mist,#98FF98,152,255,152
 Mint turquoise,#497E76,73,126,118
 Mint green,#20603D,32,96,61
 Mint cream,#F5FFFA,245,255,250
-Narcissus yellow,#DC9D00,220,157,0
-Saturated,#803E75,128,62,117
-Rich yellow-green,#7F8F18,127,143,24
-Rich yellowish green,#478430,71,132,48
-Rich yellowish brown,#95500C,149,80,12
-Rich yellowish pink,#FF7A5C,255,122,92
-Rich yellow,#E59E1F,229,158,31
-Rich greenish yellow,#CCA817,204,168,23
-Rich greenish blue,#00677E,0,103,126
-Rich green,#006B3C,0,107,60
-Rich brown,#753313,117,51,19
-Rich reddish brown,#7F180D,127,24,13
-Rich reddish orange,#FFB961,255,185,97
-Rich reddish purple,#9A366B,154,54,107
-Rich red,#BF2233,191,34,51
-Rich olive green,#0A4500,10,69,0
-Rich orange-yellow,#FF8E0D,255,142,13
-Rich orange,#EC7C26,236,124,38
-Rich purple-red,#B32851,179,40,81
-Rich purple pink,#F6768E,246,118,142
-Rich purple blue,#474389,71,67,137
-Rich pink,#FD7B7C,253,123,124
-Rich bluish green,#006D5B,0,109,91
-Rich blue,#00538A,0,83,138
-Rich purple,#53377A,83,55,122
-Natural umber,#734A12,115,74,18
-sky blue,#F0FFFF,240,255,255
+Lich Gold,#DC9D00,220,157,0
+Heather spell,#803E75,128,62,117
+Ancient moss,#7F8F18,127,143,24
+Druid canopy,#478430,71,132,48
+Amber carapace,#95500C,149,80,12
+Hellfire blossom,#FF7A5C,255,122,92
+Desert coin,#E59E1F,229,158,31
+Venom glint,#CCA817,204,168,23
+Sovereign Abyss,#00677E,0,103,126
+Royal green,#006B3C,0,107,60
+Hearth wood,#753313,117,51,19
+Dragon gore,#7F180D,127,24,13
+Autumn spark,#FFB961,255,185,97
+Orchid hex,#9A366B,154,54,107
+Royal red,#BF2233,191,34,51
+Deep mire,#0A4500,10,69,0
+Magma surge,#FF8E0D,255,142,13
+Forge ember,#EC7C26,236,124,38
+Velvet wine,#B32851,179,40,81
+Siren petal,#F6768E,246,118,142
+Twilight curse,#474389,71,67,137
+Silk blush,#FD7B7C,253,123,124
+Imperial Malachite,#006D5B,0,109,91
+Royal blue,#00538A,0,83,138
+Royal purple,#53377A,83,55,122
+Feral soil,#734A12,115,74,18
+Crystal veil,#F0FFFF,240,255,255
 Sky blue,#2271B3,34,113,179
-Heavenly,#87CEEB,135,206,235
+Celestial blessing,#87CEEB,135,206,235
 Subtle olive,#6B8E23,107,142,35
-Immature yellow,#FFFF66,255,255,102
-Neon carrot,#FFA343,255,163,67
-Jade,#00A86B,0,168,107
-Niagara,#9DB1CC,157,177,204
-Night blue,#252850,37,40,80
-An ordinary spring bud,#C9DC87,201,220,135
-Fiery Sienna Crayola,#EA7E5D,234,126,93
+Sulphur gleam,#FFFF66,255,255,102
+Fire breath,#FFA343,255,163,67
+Naga Carapace,#00A86B,0,168,107
+Phantom Slate,#9DB1CC,157,177,204
+Midnight Shroud,#252850,37,40,80
+Meadow green,#C9DC87,201,220,135
+Frost sienna,#EA7E5D,234,126,93
 Fire red,#AF2B1E,175,43,30
 Fiery orange,#FF7F49,255,127,73
-Dandelion,#FDDB6D,253,219,109
-Ocean blue,#1D334A,29,51,74
-Oxide red,#642424,100,36,36
-Deer brown,#59351F,89,53,31
-Olive yellow,#999950,153,153,80
-Olive green,#424632,66,70,50
-Olive green Crayola,#BAB86C,186,184,108
-Olive brown,#6F4F28,111,79,40
-Olive gray,#4D4234,77,66,52
-Olive black,#121910,18,25,16
-Olive,#808000,128,128,0
+Sunbeam glint,#FDDB6D,253,219,109
+Silent bay,#1D334A,29,51,74
+Dried blood,#642424,100,36,36
+Chimera hide,#59351F,89,53,31
+Plagued gold,#999950,153,153,80
+Crypt moss,#424632,66,70,50
+Fen shroud,#BAB86C,186,184,108
+Root shade,#6F4F28,111,79,40
+Tomb earth,#4D4234,77,66,52
+Obsidian soul,#121910,18,25,16
+Swamp ooze,#808000,128,128,0
 Opal green,#015D52,1,93,82
 Opera mauve,#B784A7,183,132,167
-Orange dawn,#FD5E53,253,94,83
-Orange-yellow Crayola,#F8D568,248,213,104
-Orange-brown,#A65E2E,166,94,46
-Orange-red Crayola,#FF2B2B,255,43,43
-Orange-peach,#FFCC99,255,204,153
-Orange pink,#FF9966,255,153,102
-Orange,#FFA500,255,165,0
-Orange Crayola,#FF7538,255,117,56
-Walnut brown,#5B3A29,91,58,41
+Ember glow dawn,#FD5E53,253,94,83
+Gilded flare,#F8D568,248,213,104
+Bronze armor,#A65E2E,166,94,46
+Flame core,#FF2B2B,255,43,43
+Apricot hush,#FFCC99,255,204,153
+Ember glow pink,#FF9966,255,153,102
+Ember glow,#FFA500,255,165,0
+Feral ember,#FF7538,255,117,56
+Charred heart,#5B3A29,91,58,41
 Orient red,#B32428,179,36,40
 Orchidaceae,#DA70D6,218,112,214
-Orchid Crayola,#E6A8D7,230,168,215
-Select yellow,#FFBA00,255,186,0
-Distant blue,#49678D,73,103,141
-Hunter green,#355E3B,53,94,59
-Ocher,#CC7722,204,119,34
-Yellow ocher,#AEA04B,174,160,75
-Ocher brown,#955F20,149,95,32
-Very pale purple,#E6BBC1,230,187,193
-Very pale green,#D8DEBA,216,222,186
-Very pale purplish blue,#CBBAC5,203,186,197
-Very pale blue,#C1CACA,193,202,202
-Very pale purple,#D8B1BF,216,177,191
-Very deep yellowish green,#002800,0,40,0
-Very deep reddish purple,#470736,71,7,54
-Very deep red,#4F0014,79,0,20
-Very deep purple-red,#470027,71,0,39
-Very deep purple,#320B35,50,11,53
-Very purple blue,#20155E,32,21,94
-Very light purple,#E3A9BE,227,169,190
-Pale Lichen,#C6DF90,198,223,144
-Very light greenish blue,#A3C6C0,163,198,192
-Very light green,#98C793,152,199,147
-Very light purple blue,#BAACC7,186,172,199
-Very light bluish green,#A0D6B4,160,214,180
-Very light blue,#A6BDD7,166,189,215
-Very light purple,#EEBEF1,238,190,241
-Very dark purple,#230D21,35,13,33
-Very dark scarlet,#560319,86,3,25
-Very dark yellowish green,#132712,19,39,18
-Very dark greenish blue,#022027,2,32,39
-Very dark green,#16251C,22,37,28
-Very dark reddish purple,#270A1F,39,10,31
-Very dark red,#320A18,50,10,24
-Very dark olive,#362C12,54,44,18
-Very dark purple-red,#28071A,40,7,26
-Very dark bluish green,#001D18,0,29,24
-Shelled almonds,#FFEBCD,255,235,205
-Pang,#C7FCEC,199,252,236
-Fern Crayola,#71BC78,113,188,120
+Gossamer Petal,#E6A8D7,230,168,215
+Guild coin,#FFBA00,255,186,0
+Astral Dusk,#49678D,73,103,141
+Druid Veil,#355E3B,53,94,59
+Basilic Husk,#CC7722,204,119,34
+Sunfall gold ocher,#AEA04B,174,160,75
+Scorched clay,#955F20,149,95,32
+Ancient pale rose,#E6BBC1,230,187,193
+Elder pale green,#D8DEBA,216,222,186
+Forgotten purplish blue,#CBBAC5,203,186,197
+Primeval pale blue,#C1CACA,193,202,202
+Lotus satin,#D8B1BF,216,177,191
+Overgrown core,#002800,0,40,0
+Withered velvet,#470736,71,7,54
+Blood relic,#4F0014,79,0,20
+Abyss bloom,#470027,71,0,39
+Twilight hex,#320B35,50,11,53
+Void sigil,#20155E,32,21,94
+Siren blush,#E3A9BE,227,169,190
+Faded lichen,#C6DF90,198,223,144
+Opal mist,#A3C6C0,163,198,192
+Sprite fern,#98C793,152,199,147
+Nebula veil,#BAACC7,186,172,199
+Mint veil,#A0D6B4,160,214,180
+Star frost,#A6BDD7,166,189,215
+Fae spark,#EEBEF1,238,190,241
+Void core,#230D21,35,13,33
+Vampire gore,#560319,86,3,25
+Deep canopy,#132712,19,39,18
+Deep abyss,#022027,2,32,39
+Crypt hollow,#16251C,22,37,28
+Cursed velvet,#270A1F,39,10,31
+Sanguine relic,#320A18,50,10,24
+Shadow canopy,#362C12,54,44,18
+Nocturnal soul,#28071A,40,7,26
+Sunken depth,#001D18,0,29,24
+Alabaster Veil,#FFEBCD,255,235,205
+Aqua whisper,#C7FCEC,199,252,236
+Moss fern,#71BC78,113,188,120
 Fern green,#3D642D,61,100,45
-Pastel turquoise,#7FB5B5,127,181,181
-Pastel yellow,#EFA94A,239,169,74
-Pastel green,#77DD77,119,221,119
-Pastel orange,#FF7514,255,117,20
-Pastel pink,#FFD1DC,255,209,220
-Pastel blue,#5D9B9B,93,155,155
-Pastel purple,#A18594,161,133,148
+Moonlit aqua,#7FB5B5,127,181,181
+Honey amber,#EFA94A,239,169,74
+Elven moss,#77DD77,119,221,119
+Forge spark,#FF7514,255,117,20
+Silk whisper,#FFD1DC,255,209,220
+Mermaid tear,#5D9B9B,93,155,155
+Mist over water,#A18594,161,133,148
 Patina green,#316650,49,102,80
-Perekatipole,#DEAA88,222,170,136
-Pearl beige,#6A5D4D,106,93,77
-Pearly-blackberry,#6C6874,108,104,116
+Golden drift,#DEAA88,222,170,136
+Tavern leather,#6A5D4D,106,93,77
+Withered petal,#6C6874,108,104,116
 Pearl green,#1C542D,28,84,45
-Pearlescent gold,#705335,112,83,53
-Pearlescent orange,#C35831,195,88,49
+Antique bronze,#705335,112,83,53
+Wyrm Fire,#C35831,195,88,49
 Pearl pink,#B44C43,180,76,67
-Pearlescent ruby,#721422,114,20,34
-Pearlescent purple,#8673A1,134,115,161
-Pearlescent gentian blue,#2A6478,42,100,120
-Pearlescent copper,#763C28,118,60,40
-Pearlescent Mouse Gray,#898176,137,129,118
-Pearly night,#102C54,16,44,84
-Pearl Opal,#193737,25,55,55
-Pearlescent light gray,#9C9C9C,156,156,156
-Pearl dark gray,#828282,130,130,130
-Persian green,#00A693,0,166,147
-Persian indigo,#32127A,50,18,122
-Persian red,#CC3333,204,51,51
-Persian pink,#FE28A2,254,40,162
-Persian blue,#6600FF,102,0,255
-Peach,#FFE5B4,255,229,180
-Peach Crayola,#FFCFAB,255,207,171
-Peru,#CD853F,205,133,63
-desert sand,#EFCDB8,239,205,184
+Garnet Gaze,#721422,114,20,34
+Amethyst Dust,#8673A1,134,115,161
+Nereid Tear,#2A6478,42,100,120
+Cursed Bronze,#763C28,118,60,40
+Miststone,#898176,137,129,118
+Midnight tide,#102C54,16,44,84
+Abyss opal,#193737,25,55,55
+Golem slate,#9C9C9C,156,156,156
+Iron shard,#828282,130,130,130
+Deep tide,#00A693,0,166,147
+Void Infinitum,#32127A,50,18,122
+Hellfire Embers,#CC3333,204,51,51
+Succubus Kiss,#FE28A2,254,40,162
+Rift Eclipse,#6600FF,102,0,255
+Griffon Down,#FFE5B4,255,229,180
+Warm peach,#FFCFAB,255,207,171
+Terracotta hide,#CD853F,205,133,63
+Pale dune,#EFCDB8,239,205,184
 Sand yellow,#C6A664,198,166,100
 Sand,#FCDD76,252,221,118
 Sandy taupe,#967117,150,113,23
-Pigment green,#00A550,0,165,80
-Fir green,#31372B,49,55,43
-Fiery Magenta Crayola,#F8173E,248,23,62
+Alchemist emerald,#00A550,0,165,80
+Gloam forest,#31372B,49,55,43
+Feral red,#F8173E,248,23,62
 Platinum gray,#7F7679,127,118,121
-Papaya shoot,#FFEFD5,255,239,213
-Twilight Crayola,#8A795D,138,121,93
+Celestial silk,#FFEFD5,255,239,213
+Twilight dust,#8A795D,138,121,93
 Midnight blue,#003366,0,51,102
-Midnight Blue Crayola,#1A4876,26,72,118
-Midnight Black,#191970,25,25,112
-Jaco's last breath,#FF9218,255,146,24
+Stellar Void,#1A4876,26,72,118
+Midnight navy,#191970,25,25,112
+Amber glow,#FF9218,255,146,24
 Almost black,#131313,19,19,19
 Phantom white,#F8F8FF,248,248,255
-Purple Pizza,#FF00CC,255,0,204
-Purple-white,#FADBC8,250,219,200
-Purple red,#75151E,117,21,30
-Purple gray,#88706B,136,112,107
-Purple violet,#4A192C,74,25,44
-Purple-black,#1B1116,27,17,22
-Purple mountain majesty,#9D81BA,157,129,186
-Purple Heart,#7442C8,116,66,200
-Purple,#800080,128,0,128
-Wheat,#F5DEB3,245,222,179
+Plum glow,#FF00CC,255,0,204
+Light blush,#FADBC8,250,219,200
+Deep dusk red,#75151E,117,21,30
+Dusk slate,#88706B,136,112,107
+Sable orchid,#4A192C,74,25,44
+Void shadow,#1B1116,27,17,22
+Dusk summit,#9D81BA,157,129,186
+Royal amethyst,#7442C8,116,66,200
+Velvet dusk,#800080,128,0,128
+Golden shroud,#F5DEB3,245,222,179
 Ardent pink,#FF7E93,255,126,147
-Dusty gray,#7D7F7D,125,127,125
-Dusty blue,#B0E0E6,176,224,230
-Pyusovy,#CC8899,204,136,153
-Radical Red,#FF496C,255,73,108
-Rapeseed yellow,#F3DA0B,243,218,11
+Ashen gray,#7D7F7D,125,127,125
+Ashen cyan,#B0E0E6,176,224,230
+Rose haze,#CC8899,204,136,153
+Radical crimson flame,#FF496C,255,73,108
+Pyre gold,#F3DA0B,243,218,11
 Reseda green,#587246,88,114,70
 Rusty brown,#B7410E,183,65,14
 Pinkish lavender,#FFF0F5,255,240,245
-Pinkish-purple-gray,#915F6D,145,95,109
+Haze orchid,#915F6D,145,95,109
 Mauve,#993366,153,51,102
-Mauve Crayola,#EF98AA,239,152,170
-Pinkish gray,#C8A696,200,166,150
-pink carnation,#FFAACC,255,170,204
-Rose Valley,#AB4E52,171,78,82
-Pink fuchsia,#FF77FF,255,119,255
+Pale mauve,#EF98AA,239,152,170
+Stardust haze,#C8A696,200,166,150
+Pixie blush,#FFAACC,255,170,204
+Bleeding petal,#AB4E52,171,78,82
+Nebula spark,#FF77FF,255,119,255
 Rose gold,#B76E79,183,110,121
-Pink brown,#BC8F8F,188,143,143
-Pink-taupe,#905D5D,144,93,93
-Pink-violet,#EE82EE,238,130,238
-Pink ebony,#674846,103,72,70
-Pink,#FFC0CB,255,192,203
-Pink,#FC89AC,252,137,172
-Pink antique,#D36E70,211,110,112
-Rose quartz,#AA98A9,170,152,169
-Pink forest,#65000B,101,0,11
-Pink Mountbatten,#997A8D,153,122,141
-Pink pig,#FDDDE6,253,221,230
-Pink flamingo,#FC74FD,252,116,253
-Pink sherbet,#F78FA7,247,143,167
-Ruby red,#9B111E,155,17,30
+Dust satin,#BC8F8F,188,143,143
+Blush timber,#905D5D,144,93,93
+Fae petal,#EE82EE,238,130,238
+Crypt bark,#674846,103,72,70
+Petal haze,#FFC0CB,255,192,203
+Dried rose,#D36E70,211,110,112
+Mist veil,#AA98A9,170,152,169
+Sanguine core,#65000B,101,0,11
+Dusk petal,#997A8D,153,122,141
+Celestial satin,#FDDDE6,253,221,230
+Void flare,#FC74FD,252,116,253
+Siren silk,#F78FA7,247,143,167
+Fresh sacrifice,#9B111E,155,17,30
 Blush,#DE5D83,222,93,131
-Ginger,#D77D31,215,125,49
-Light green,#99FF99,153,255,153
-Sanguine,#92000A,146,0,10
-Sapphire blue,#1D1E33,29,30,51
+Copper ore,#D77D31,215,125,49
+Lime glow,#99FF99,153,255,153
+Bloodwake,#92000A,146,0,10
+Abyss vault,#1D1E33,29,30,51
 Sapphire,#082567,8,37,103
-light plum,#DDA0DD,221,160,221
-Light ivory,#E6D690,230,214,144
-Light turquoise,#40E0D0,64,224,208
-Light cherry,#DE3163,222,49,99
-Light cherry Crayola,#DD4492,221,68,146
-Light blue,#87CEFA,135,206,250
-Light yellow,#FFFFE0,255,255,224
-Light yellow golden,#FAFAD2,250,250,210
-Light green,#90EE90,144,238,144
-Light golden,#FFEC8B,255,236,139
-Light carmine pink,#E66761,230,103,97
-Light coral,#FFBCAD,255,188,173
-Light brown,#987654,152,118,84
-Light Carrot,#ED9121,237,145,33
-Light olive,#846A20,132,106,32
-Light sand,#FDEAA8,253,234,168
-Light purple,#BA7FA2,186,127,162
-Light mauve,#DCD0FF,220,208,255
-Light pink fuchsia,#F984EF,249,132,239
-Light mauve,#EA899A,234,137,154
-Light pink,#FFB6C1,255,182,193
-Light silver,#C9C0BB,201,192,187
-Light gray blue,#84C3BE,132,195,190
-Light grayish red,#B17267,177,114,103
-Light gray,#D7D7D7,215,215,215
-Light blue-gray,#6C92AF,108,146,175
-Light blue,#A6CAF0,166,202,240
-Light Titian,#D84B20,216,75,32
-Light purple,#876C99,135,108,153
-Light green sea,#20B2AA,32,178,170
-Light blue,#ADD8E6,173,216,230
-Light slate gray,#778899,119,136,153
-Light deep yellow,#FFD35F,255,211,95
-Light denim,#2B6CC4,43,108,196
-Light yellow-green,#DCD36A,220,211,106
-Light tan,#BB8B54,187,139,84
-Light yellowish pink,#FFB28B,255,178,139
-Light greenish white,#BAAF96,186,175,150
-Light greenish yellow,#FFDE5A,255,222,90
-Light greenish blue,#649A9E,100,154,158
-Light brownish gray,#8B6D5C,139,109,92
-Light brown,#A86540,168,101,64
-Light reddish brown,#AA6651,170,102,81
-Light reddish purple,#BB6C8A,187,108,138
-Light raspberry red,#E63244,230,50,68
-Light olive brown,#945D0B,148,93,11
-Light olive gray,#887359,136,115,89
-Light orange,#FFA161,255,161,97
-Light purple pink,#FFA8AF,255,168,175
-Light purple gray,#C8A99E,200,169,158
-Light purple blue,#837DA2,131,125,162
-Pale Dune,#B48764,180,135,100
-Light taupe,#946B54,148,107,84
-Ashen Rust,#966A57,150,106,87
-Light grayish olive,#8B734B,139,115,75
-Light grayish-purple-red,#B27070,178,112,112
-Light gray,#C2A894,194,168,148
-Light bluish green,#669E85,102,158,133
-Light bluish gray,#BEADA1,190,173,161
-Light steel blue,#B0C4DE,176,196,222
-Light Telegrey,#D0D0D0,208,208,208
-Light khaki,#F0E68C,240,230,140
-Light cyan,#E0FFFF,224,255,255
-Sepia,#704214,112,66,20
+Lavender wisp,#DDA0DD,221,160,221
+Soft ivory,#E6D690,230,214,144
+Soft turquoise,#40E0D0,64,224,208
+Soft cherry,#DE3163,222,49,99
+Smoke cherry,#DD4492,221,68,146
+Starlight cream,#FFFFE0,255,255,224
+Gilded silk,#FAFAD2,250,250,210
+Sprite leaf,#90EE90,144,238,144
+Pale honey,#FFEC8B,255,236,139
+Ember blush,#E66761,230,103,97
+Shell glow,#FFBCAD,255,188,173
+Ranger hide,#987654,152,118,84
+Amber bloom,#ED9121,237,145,33
+Relic moss,#846A20,132,106,32
+Star sand,#FDEAA8,253,234,168
+Twilight petal,#BA7FA2,186,127,162
+Soft lilac,#DCD0FF,220,208,255
+Nebula flare,#F984EF,249,132,239
+Petal veil,#EA899A,234,137,154
+Gentle pink,#FFB6C1,255,182,193
+Ghost iron,#C9C0BB,201,192,187
+Quiet teal,#84C3BE,132,195,190
+Dried earth,#B17267,177,114,103
+Pale frost,#D7D7D7,215,215,215
+Lunar silk,#6C92AF,108,146,175
+Soft titian,#D84B20,216,75,32
+Astral velvet,#876C99,135,108,153
+Dust green sea,#20B2AA,32,178,170
+Glacial Mist,#ADD8E6,173,216,230
+Mild slate gray,#778899,119,136,153
+Alchemist gold,#FFD35F,255,211,95
+Cobalt Mist,#2B6CC4,43,108,196
+Acid glint,#DCD36A,220,211,106
+Sandstone veil,#BB8B54,187,139,84
+Amber blush,#FFB28B,255,178,139
+Ashen silk,#BAAF96,186,175,150
+Pixie glow,#FFDE5A,255,222,90
+Patina Silk,#649A9E,100,154,158
+Hollow timber,#8B6D5C,139,109,92
+Forge timber,#A86540,168,101,64
+Terracotta mist,#AA6651,170,102,81
+Bloom orchid,#BB6C8A,187,108,138
+Soft raspberry red,#E63244,230,50,68
+Warlock ichor,#945D0B,148,93,11
+Swamp bark,#887359,136,115,89
+Muted orange,#FFA161,255,161,97
+Quiet purple pink,#FFA8AF,255,168,175
+Pale satin,#C8A99E,200,169,158
+Mist spell,#837DA2,131,125,162
+Desert dusk,#B48764,180,135,100
+Silk taupe,#946B54,148,107,84
+Scorched iron,#966A57,150,106,87
+Runic moss,#8B734B,139,115,75
+Faded sanguine,#B27070,178,112,112
+Pale clay,#C2A894,194,168,148
+Minted Nebula,#669E85,102,158,133
+Ashen taupe,#BEADA1,190,173,161
+Muted steel blue,#B0C4DE,176,196,222
+Steel shard,#D0D0D0,208,208,208
+Thin khaki,#F0E68C,240,230,140
+Faint cyan,#E0FFFF,224,255,255
+Chronos dust,#704214,112,66,20
 Sepia brown,#382C1E,56,44,30
-Sepia Crayola,#A5694F,165,105,79
-Gray squirrel,#78858B,120,133,139
-Gray asparagus,#465945,70,89,69
-Umber gray,#332F2C,51,47,44
-Silver gray,#8A9597,138,149,151
-Silver,#C0C0C0,192,192,192
-Silver Crayola,#CDC5C2,205,197,194
-Gray beige,#9E9764,158,151,100
-Gray-green,#ACE1AF,172,225,175
-Taupe,#403A3A,64,58,58
-Olive gray,#3E3B32,62,59,50
-Gray blue,#5F9EA0,95,158,160
-Gray-blue Crayola,#B0B7C6,176,183,198
-Brown-raspberry gray,#735184,115,81,132
-Grayish yellowish green,#90845B,144,132,91
-Grayish yellowish brown,#785840,120,88,64
-Grayish yellowish pink,#D39B85,211,155,133
-Grayish yellow,#CEA262,206,162,98
-Grayish greenish yellow,#C4A55F,196,165,95
-Grayish green,#575E4E,87,94,78
-Grayish brown,#5A3D30,90,61,48
-Grayish reddish brown,#5E3830,94,56,48
-Grayish-reddish-orange,#B85D43,184,93,67
-Grayish reddish purple,#7D4D5D,125,77,93
-Grayish red,#8C4743,140,71,67
-Grayish olive,#52442C,82,68,44
-Grayish-purple-red,#8C4852,140,72,82
-Grayish purple pink,#CC9293,204,146,147
-Grayish purple blue,#413D51,65,61,81
-Grayish purple,#72525C,114,82,92
-Grayish pink,#CF9B8F,207,155,143
-Grayish blue,#4A545C,74,84,92
-Grayish purple,#46394B,70,57,75
-Grayish olive green,#48442D,72,68,45
-Gray window,#9DA1AA,157,161,170
-Gray khaki,#6A5F31,106,95,49
-Grey,#808080,128,128,128
-Gray concrete,#686C5E,104,108,94
-Gray green tea,#CADABA,202,218,186
-Gray Crayola,#95918C,149,145,140
-Gray moss,#6C7059,108,112,89
-Gray neutral,#A0A0A4,160,160,164
-Gray silk,#CAC4B0,202,196,176
-Slate Gray,#708090,112,128,144
-Signal yellow,#E5BE01,229,190,1
-Signal green,#317F43,49,127,67
-Signal brown,#6C3B2A,108,59,42
-Signal red,#A52019,165,32,25
-Signal orange,#FF9900,255,153,0
-Signal gray,#969992,150,153,146
-Signal blue,#1E2460,30,36,96
-Signal purple,#924E7D,146,78,125
-Signal black,#282828,40,40,40
-Sienna,#A0522D,160,82,45
+Clay sepia,#A5694F,165,105,79
+Storm slate,#78858B,120,133,139
+Moss shroud,#465945,70,89,69
+Catacomb stone,#332F2C,51,47,44
+Phantom mist,#8A9597,138,149,151
+Silver haze,#C0C0C0,192,192,192
+Pearl shimmer,#CDC5C2,205,197,194
+Swamp moss,#9E9764,158,151,100
+Moss hush,#ACE1AF,172,225,175
+Ashen Shroud,#403A3A,64,58,58
+Void ash,#3E3B32,62,59,50
+Stone mist teal,#5F9EA0,95,158,160
+Storm ash,#B0B7C6,176,183,198
+Mystic velvet,#735184,115,81,132
+Plague gold,#90845B,144,132,91
+Ruin timber,#785840,120,88,64
+Dusk blush,#D39B85,211,155,133
+Desert sand,#CEA262,206,162,98
+Relic amber,#C4A55F,196,165,95
+Deep woods,#575E4E,87,94,78
+Cavern deep,#5A3D30,90,61,48
+Blood stone,#5E3830,94,56,48
+Fire brand,#B85D43,184,93,67
+Twilight orchid,#7D4D5D,125,77,93
+Dried sanguine,#8C4743,140,71,67
+Dry moss,#52442C,82,68,44
+Dusk orchid,#8C4852,140,72,82
+Blush veil,#CC9293,204,146,147
+Mist sigil,#413D51,65,61,81
+Shadow satin,#72525C,114,82,92
+Ashen Blossom,#CF9B8F,207,155,143
+Phantom fog,#4A545C,74,84,92
+Cursed violet,#46394B,70,57,75
+Ancient druid moss,#48442D,72,68,45
+Storm veil,#9DA1AA,157,161,170
+Ancient gold,#6A5F31,106,95,49
+Stone mist,#808080,128,128,128
+Tomb slate,#686C5E,104,108,94
+Stone green tea,#CADABA,202,218,186
+Pale dust,#95918C,149,145,140
+Stone mist moss,#6C7059,108,112,89
+Stone mist neutral,#A0A0A4,160,160,164
+Stone veil,#CAC4B0,202,196,176
+Slate stone mist,#708090,112,128,144
+Sun sigil,#E5BE01,229,190,1
+Grove sigil,#317F43,49,127,67
+Grave soil,#6C3B2A,108,59,42
+Dragon fire,#A52019,165,32,25
+Core ember,#FF9900,255,153,0
+Golem plate,#969992,150,153,146
+Nocturnal void,#1E2460,30,36,96
+Mystic hex,#924E7D,146,78,125
+Deep graphite,#282828,40,40,40
+Dying embers,#A0522D,160,82,45
 Burnt sienna,#E97451,233,116,81
-Gray,#79A0C1,121,160,193
-Blue-green,#1F3A3D,31,58,61
-Blue-green Crayola,#0D98BA,13,152,186
-Deep Teal,#008080,0,128,128
-Blue-purple,#8A2BE2,138,43,226
-Blue-gray,#474B4E,71,75,78
-Blue-gray Crayola,#6699CC,102,153,204
-Blue-lilac,#6C4675,108,70,117
-Blue-violet Crayola,#7366BD,115,102,189
-Bluish white,#F9DFCF,249,223,207
-Slate gray,#7D746D,125,116,109
-Bluish black,#151719,21,23,25
-Blue,#0000FF,0,0,255
-Blue Degrees,#007DFF,0,125,255
-Klein Blue,#3A75C4,58,117,196
-Blue Crayola,#1F75FE,31,117,254
-Thrush Egg,#1FCECB,31,206,203
-Blue teal,#18A7B5,24,167,181
-Blue Dust,#003399,0,51,153
-Blue steel,#4682B4,70,130,180
-Blue Alice,#F0F8FF,240,248,255
+Harbor veil,#79A0C1,121,160,193
+Sunken chasm,#1F3A3D,31,58,61
+Leviathan Wave,#0D98BA,13,152,186
+Velvet teal,#008080,0,128,128
+Veiled iris,#8A2BE2,138,43,226
+Forge slate,#474B4E,71,75,78
+Smolder mist,#6699CC,102,153,204
+Astral orchid,#6C4675,108,70,117
+Duskwraith,#7366BD,115,102,189
+Blush nectar,#F9DFCF,249,223,207
+Catacomb slate,#7D746D,125,116,109
+Void shroud,#151719,21,23,25
+Deep sky,#0000FF,0,0,255
+Deep sky degrees,#007DFF,0,125,255
+Klein deep sky,#3A75C4,58,117,196
+Deep sky bloom,#1F75FE,31,117,254
+Abyssal beacon,#1FCECB,31,206,203
+Deep sky teal,#18A7B5,24,167,181
+Deep sky dust,#003399,0,51,153
+Deep sky steel,#4682B4,70,130,180
+Frost veil,#F0F8FF,240,248,255
 Lilac,#C8A2C8,200,162,200
-Scandalous orange,#FF6E4A,255,110,74
-Scarlet,#FC2847,252,40,71
-cotton candy,#FFBCD9,255,188,217
-Slate gray,#434750,67,71,80
-Plum,#660066,102,0,102
-Plum Crayola,#8E4585,142,69,133
+Foxfire,#FF6E4A,255,110,74
+Petal specter,#FFBCD9,255,188,217
+Shadow steel,#434750,67,71,80
+Midnight Dahlia,#660066,102,0,102
+Plum violet,#8E4585,142,69,133
 Creamy,#F2E8C9,242,232,201
-Ivory,#FFFFF0,255,255,240
-Snow blue,#ACE5EE,172,229,238
-Sunny yellow,#F39F18,243,159,24
-Somon,#EFAF8C,239,175,140
+Pure ivory,#FFFFF0,255,255,240
+Snow cyan,#ACE5EE,172,229,238
+Gold crest,#F39F18,243,159,24
+Peach bloom,#EFAF8C,239,175,140
 Pine green,#2C5545,44,85,69
-Asparagus,#7BA05B,123,160,91
-Asparagus Crayola,#87A96B,135,169,107
+Ranger green,#7BA05B,123,160,91
+Sage fern,#87A96B,135,169,107
 Medium carmine,#AF4035,175,64,53
-Medium Persian Blue,#0067A5,0,103,165
-Medium purple,#9370D8,147,112,216
-Medium gray,#817066,129,112,102
-Steel blue,#231A24,35,26,36
+Lagoon abyss,#0067A5,0,103,165
+Nebula Satin,#9370D8,147,112,216
+Pale iron,#817066,129,112,102
+Shadow plum,#231A24,35,26,36
 Vintage pink,#C08081,192,128,129
 Old gold,#CFB53B,207,181,59
 Old lace,#FDF5E6,253,245,230
 Old flax,#EEDC82,238,220,130
 Raw ocher,#D68A59,214,138,89
-Raw Umber,#714B23,113,75,35
-Telegrey,#909090,144,144,144
-TV agent,#CF3476,207,52,118
-Dark Byzantium,#5D3954,93,57,84
-dark orchid,#9932CC,153,50,204
-Dark scarlet,#CB2821,203,40,33
-Dark turquoise,#116062,17,96,98
-Dark blue,#3B83BD,59,131,189
-Dark pear,#D8A903,216,169,3
-Dark yellow,#B07D2B,176,125,43
-Dark green,#013220,1,50,32
-Dark Herbal,#006400,0,100,0
-Dark chestnut,#986960,152,105,96
-Dark coral,#CD5B45,205,91,69
-Dark brown,#654321,101,67,33
-Dark azure,#08457E,8,69,126
-Dark salmon,#E9967A,233,150,122
-Dark tangerine,#FFA812,255,168,18
-Dark olive,#556832,85,104,50
-Dark orange,#FF8C00,255,140,0
-Dark peach,#FFDAB9,255,218,185
-Dark purple,#472A3F,71,42,63
-Dark pink,#E75480,231,84,128
-Dark taupe,#483C32,72,60,50
-Dark grayish olive green,#27261A,39,38,26
-Dark gray,#49423D,73,66,61
-Dark blue,#002137,0,33,55
-Dark blue,#000080,0,0,128
-Dark Blue Crayola,#1974D2,25,116,210
-Ultramarine,#00008B,0,0,139
-Dark purple,#9400D3,148,0,211
-Dark green sea,#8FBC8F,143,188,143
-Dark red,#8B0000,139,0,0
-Dark slate blue,#483D8B,72,61,139
-Dark spring green,#177245,23,114,69
-Dark yellow-green,#57A639,87,166,57
-Dark yellow-brown,#918151,145,129,81
-Dark yellowish green,#304B26,48,75,38
-Dark tan,#3F2512,63,37,18
-Dark yellowish pink,#CC6C5C,204,108,92
-Deep Fen,#313830,49,56,48
-Dark greenish yellow,#9B8127,155,129,39
-Dark greenish gray,#45433B,69,67,59
-Dark greenish blue,#003841,0,56,65
-Dark green tea,#BADBAD,186,219,173
-Dark Goldenrod,#B8860B,184,134,11
-Dark indigo,#310062,49,0,98
-Dark reddish brown,#321011,50,16,17
-Dark reddish orange,#9B2F1F,155,47,31
-Dark reddish purple,#4F273A,79,39,58
-Dark reddish gray,#523C36,82,60,54
-Dark red,#681C23,104,28,35
-Dark magenta,#8B008B,139,0,139
-Dark olive green,#232C16,35,44,22
-Dark olive brown,#302112,48,33,18
-Dark orange-yellow,#C37629,195,118,41
-Dark pastel green,#03C03C,3,192,60
-Dark purple-red,#5B1E31,91,30,49
-Dark purple pink,#C76574,199,101,116
-Dark purple gray,#564042,86,64,66
-Dark purple blue,#1A162A,26,22,42
-Dark purple-violet,#660099,102,0,153
-Dark pink,#C76864,199,104,100
-Dark gray blue,#26252D,38,37,45
-Dark grayish yellow,#A47C45,164,124,69
-Dark taupe,#32221A,50,34,26
-Old Blood,#371F1C,55,31,28
-Dark grayish red,#482A2A,72,42,42
-Dark grayish olive,#2B2517,43,37,23
-Dark grayish blue,#2C3337,44,51,55
-Dark bluish green,#013A33,1,58,51
-Dark bluish black,#464544,70,69,68
-Dark Telegray,#82898F,130,137,143
-Dark khaki,#BDB76B,189,183,107
-Dark cyan,#008B8B,0,139,139
-Dark blackish purple,#452D35,69,45,53
-Dark amber,#FF7E00,255,126,0
+Raw umber,#714B23,113,75,35
+Steel gravel,#909090,144,144,144
+Rose pulse,#CF3476,207,52,118
+Shadow byzantium,#5D3954,93,57,84
+Night orchid,#9932CC,153,50,204
+Abyssal flame,#CB2821,203,40,33
+Sunken pearl,#116062,17,96,98
+Autumn olive,#D8A903,216,169,3
+Ochre relic,#B07D2B,176,125,43
+Shadow deep green,#013220,1,50,32
+Overgrown root,#006400,0,100,0
+Burnt satin,#986960,152,105,96
+Ember silk,#CD5B45,205,91,69
+Cave soil,#654321,101,67,33
+Obsidian azure,#08457E,8,69,126
+Shade salmon,#E9967A,233,150,122
+Rust glint,#FFA812,255,168,18
+Swamp cloak,#556832,85,104,50
+Dusk orange,#FF8C00,255,140,0
+Soft coral,#FFDAB9,255,218,185
+Shadow deep purple,#472A3F,71,42,63
+Umbra rose pink,#E75480,231,84,128
+Ashen clay,#483C32,72,60,50
+Abyss core,#27261A,39,38,26
+Granite veil,#49423D,73,66,61
+Obsidian blue,#000080,0,0,128
+Shade sky veil,#1974D2,25,116,210
+Ultramarine deep,#00008B,0,0,139
+Electric violet,#9400D3,148,0,211
+Kelp shadow,#8FBC8F,143,188,143
+Shadow crimson,#8B0000,139,0,0
+Deep cobalt,#483D8B,72,61,139
+Dusk spring green,#177245,23,114,69
+Venom glow,#57A639,87,166,57
+Gilded bark,#918151,145,129,81
+Lichen spore,#304B26,48,75,38
+Scorched wood,#3F2512,63,37,18
+Dusty rose,#CC6C5C,204,108,92
+Shadow cloak,#313830,49,56,48
+Cursed gold,#9B8127,155,129,39
+Basalt shell,#45433B,69,67,59
+Leviathan hide,#003841,0,56,65
+Matcha mist,#BADBAD,186,219,173
+Shadow goldenrod,#B8860B,184,134,11
+Shadow indigo,#310062,49,0,98
+Ritual bark,#321011,50,16,17
+Magma dust,#9B2F1F,155,47,31
+Duskwine,#4F273A,79,39,58
+Cinder dust,#523C36,82,60,54
+Shadow garnet,#681C23,104,28,35
+Nebula hex,#8B008B,139,0,139
+Mire moss,#232C16,35,44,22
+Crypt mud,#302112,48,33,18
+Bronze dust,#C37629,195,118,41
+Elven leaf,#03C03C,3,192,60
+Sanguine essence,#5B1E31,91,30,49
+Autumn rose,#C76574,199,101,116
+Veil purple gray,#564042,86,64,66
+Umbra purple blue,#1A162A,26,22,42
+Chaos rift,#660099,102,0,153
+Sunset clay,#C76864,199,104,100
+Storm sigil,#26252D,38,37,45
+Desert bone,#A47C45,164,124,69
+Shade deep taupe,#32221A,50,34,26
+Old blood,#371F1C,55,31,28
+Faded petal,#482A2A,72,42,42
+Bog hollow,#2B2517,43,37,23
+Slate shard,#2C3337,44,51,55
+Abyssal Shroud,#013A33,1,58,51
+Obsidian shell,#464544,70,69,68
+Pebble mist,#82898F,130,137,143
+Hollow khaki,#BDB76B,189,183,107
+Dim cyan,#008B8B,0,139,139
+Obsidian blackish purple,#452D35,69,45,53
+Shade amber,#FF7E00,255,126,0
 Terracotta,#CC4E5C,204,78,92
-Terracotta,#4E3B31,78,59,49
-Pacific Blue,#1CA9C9,28,169,201
+Pacific deep sky,#1CA9C9,28,169,201
 Titian,#D53E07,213,62,7
-Tomato red,#A12312,161,35,18
-Tomato,#FF6347,255,99,71
-Herbal,#5DA130,93,161,48
-Herbal green,#35682D,53,104,45
-Transport yellow,#FAD201,250,210,1
-Transport green,#308446,48,132,70
-Transport red,#CC0605,204,6,5
-Transport orange,#F54021,245,64,33
-Transport purple,#A03472,160,52,114
-Transport gray,#8D948D,141,148,141
-Transport blue,#063971,6,57,113
-Transport black,#1E1E1E,30,30,30
-Shamrock Crayola,#45CEA2,69,206,162
-Reed green,#6C7156,108,113,86
-Turkish pink,#B57281,181,114,129
-Dull pink,#FFE4E1,255,228,225
-Dull amaranth pink,#DDBEC3,221,190,195
-Dull gray,#696969,105,105,105
-Pumpkin,#FF7518,255,117,24
+Sanguine glaze,#A12312,161,35,18
+Fire shell,#FF6347,255,99,71
+Wild clover,#5DA130,93,161,48
+Meadow shadow,#35682D,53,104,45
+Emperor gold,#FAD201,250,210,1
+Forest glow,#308446,48,132,70
+Scarlet core,#CC0605,204,6,5
+Brass spark,#F54021,245,64,33
+Curse silk,#A03472,160,52,114
+Iron fog,#8D948D,141,148,141
+Abyss wave,#063971,6,57,113
+Pitch void,#1E1E1E,30,30,30
+Moss shamrock,#45CEA2,69,206,162
+River reed,#6C7156,108,113,86
+Blush orchid,#B57281,181,114,129
+Faded bloom,#FFE4E1,255,228,225
+Orchid dust,#DDBEC3,221,190,195
+Lead shard,#696969,105,105,105
+Wild fire,#FF7518,255,117,24
 Ultramarine blue,#20214F,32,33,79
-Ultramarine,#120A8F,18,10,143
+Vivid ultramarine,#120A8F,18,10,143
 Burnt umber,#8A3324,138,51,36
-Moderate green,#C0DCC0,192,220,192
-Moderate turquoise,#48D1CC,72,209,204
-Moderate olive,#5E490F,94,73,15
-Moderate aquamarine,#66CDAA,102,205,170
-Moderate slate blue,#7B68EE,123,104,238
-Moderate spring green,#00FA9A,0,250,154
-Moderate yellow-green,#8B8940,139,137,64
-Moderate yellowish green,#657F4B,101,127,75
-Moderate tan,#7D512D,125,81,45
-Moderate yellowish pink,#EE9374,238,147,116
-Moderate yellow,#D79D41,215,157,65
-Moderate greenish yellow,#C4A43D,196,164,61
-Moderate greenish blue,#30626B,48,98,107
-Moderate green,#386646,56,102,70
-Moderate brown,#673923,103,57,35
-Moderate reddish orange,#D35339,211,83,57
-Moderate reddish purple,#8C4566,140,69,102
-Moderate red,#AB343A,171,52,58
-Moderate olive green,#434B1B,67,75,27
-Moderate olive brown,#64400F,100,64,15
-Moderate orange-yellow,#F7943C,247,148,60
-Moderate orange,#E8793E,232,121,62
-Moderate purple-red,#A73853,167,56,83
-Moderate purple-pink,#E28090,226,128,144
-Moderate purple-blue,#423C63,66,60,99
-Moderate purple,#7F4870,127,72,112
-Moderate pink,#EE9086,238,144,134
-Moderate taupe,#674C47,103,76,71
-Moderate bluish green,#2F6556,47,101,86
-Moderate blue,#395778,57,87,120
-Moderate violet-red,#C71585,199,21,133
-Moderate purple,#543964,84,57,100
-Moderate orchid color,#BA55D3,186,85,211
-Falun red,#801818,128,24,24
+Sprout veil,#C0DCC0,192,220,192
+Mid turquoise,#48D1CC,72,209,204
+Tainted sage,#5E490F,94,73,15
+Muted aquamarine,#66CDAA,102,205,170
+Stormcaller blue,#7B68EE,123,104,238
+Quiet spring green,#00FA9A,0,250,154
+Sulfur glint,#8B8940,139,137,64
+Forest mist,#657F4B,101,127,75
+Raw leather,#7D512D,125,81,45
+Cream blush,#EE9374,238,147,116
+Honey spark,#D79D41,215,157,65
+Tarnished brass,#C4A43D,196,164,61
+Sunken wave,#30626B,48,98,107
+Ancient woods,#386646,56,102,70
+Tavern timber,#673923,103,57,35
+Ochre ember,#D35339,211,83,57
+Plum wine,#8C4566,140,69,102
+Crimson shard,#AB343A,171,52,58
+Ancient ivy,#434B1B,67,75,27
+Muted olive brown,#64400F,100,64,15
+Amber ore,#F7943C,247,148,60
+Rust shard,#E8793E,232,121,62
+Crimson well,#A73853,167,56,83
+Lilac whisp,#E28090,226,128,144
+Twilight runes,#423C63,66,60,99
+Shadow dahlia,#7F4870,127,72,112
+Rose clay,#EE9086,238,144,134
+Ashen veil,#674C47,103,76,71
+Siren's cradle,#2F6556,47,101,86
+Slate veil,#395778,57,87,120
+Rift bloom,#C71585,199,21,133
+Dark orchid,#543964,84,57,100
+Lavender silk,#BA55D3,186,85,211
+Blood rust,#801818,128,24,24
 Fandango,#B55489,181,84,137
-Feldgrau,#4D5D53,77,93,83
-Violet,#EA8DF7,234,141,247
-Purple-eggplant,#991199,153,17,153
-Purple-red Crayola,#F75394,247,83,148
-Violet-gray,#8000FF,128,0,255
-Purple blue,#354D73,53,77,115
-Purple blue Crayola,#324AB2,50,74,178
-Violet,#8B00FF,139,0,255
-Violet Crayola,#926EAE,146,110,174
-Pistachio,#BEF574,190,245,116
+Trench coat,#4D5D53,77,93,83
+Astral smoke,#EA8DF7,234,141,247
+Bruised velvet,#991199,153,17,153
+Blood dusk,#F75394,247,83,148
+Electric twilight bloom,#8000FF,128,0,255
+Storm indigo,#354D73,53,77,115
+Heavy dusk cerulean,#324AB2,50,74,178
+Twilight bloom deep,#8B00FF,139,0,255
+Earth orchid,#926EAE,146,110,174
+Sprout spark,#BEF574,190,245,116
 French pink,#F64A8A,246,74,138
-Phthalocyanite green,#123524,18,53,36
-Fuzi-Woozi,#CC6666,204,102,102
-Fuchsia,#F754E1,247,84,225
-Fuchsia Crayola,#C364C5,195,100,197
-Khaki,#C3B091,195,176,145
-Khaki camouflage,#78866B,120,134,107
-Chrome green,#2E3A23,46,58,35
-Toad in Love,#3CAA3C,60,170,60
-Bright Yolk,#F7F21A,247,242,26
-Yellow school bus color,#FFD800,255,216,0
-Tan color,#D2B48C,210,180,140
-Crayola tan,#FAA76C,250,167,108
-Red Sea color,#1F4037,31,64,55
-Small tangerine color,#FFA474,255,164,116
-Bear ear color,#834D18,131,77,24
-Wet asphalt color,#505050,80,80,80
-Wet Ash,#4E5452,78,84,82
-Sea green,#008CF0,0,140,240
-Sea Shell Color,#FFF5EE,255,245,238
-Perhydrol blonde color,#EEE6A3,238,230,163
-Fire truck color,#CE2029,206,32,41
-Ivory,#FFFDDF,255,253,223
-The color of vanity,#E3256B,227,37,107
-Color of the Black Sea,#1A4780,26,71,128
-Silk Tassel,#FFF8DC,255,248,220
-Thrush egg color,#00CCCC,0,204,204
-Yandex color,#FFCC00,255,204,0
-Floral white,#FFFAF0,255,250,240
-Cement gray,#7D8471,125,132,113
-Sea Green,#00FFFF,0,255,255
-Zinc yellow,#F8F32B,248,243,43
-Zinnwaldite,#EBC2AF,235,194,175
-Zinnwaldite pink,#FFCBBB,255,203,187
-Black-green,#343E40,52,62,64
-Black-brown,#212121,33,33,33
-Black-red,#412227,65,34,39
-Black-olive,#3B3C36,59,60,54
-Black-gray,#23282B,35,40,43
-Black and blue,#18171C,24,23,28
-Blackish green,#141613,20,22,19
-Blackish red,#1F0E11,31,14,17
-Blackish purple,#1D1018,29,16,24
-Blackish blue,#161A1E,22,26,30
-Black,#000000,0,0,0
-Jet,#0A0A0A,10,10,10
+Bramble shard,#123524,18,53,36
+Desert clay,#CC6666,204,102,102
+Bright fuchsia,#F754E1,247,84,225
+Smoke fuchsia,#C364C5,195,100,197
+Ashen flax,#C3B091,195,176,145
+Dust moss,#78866B,120,134,107
+Deep malachite,#2E3A23,46,58,35
+Willow ghost,#3CAA3C,60,170,60
+Brimstone,#F7F21A,247,242,26
+Fool's gold,#FFD800,255,216,0
+Dune whisper,#D2B48C,210,180,140
+Peach earth,#FAA76C,250,167,108
+Abyss shard,#1F4037,31,64,55
+Flame petal,#FFA474,255,164,116
+Charcoal bark,#834D18,131,77,24
+Ruin dust,#505050,80,80,80
+Shroud fog,#4E5452,78,84,82
+Cerulean bright,#008CF0,0,140,240
+Sea shell,#FFF5EE,255,245,238
+Straw blessing,#EEE6A3,238,230,163
+Scarlet hex,#CE2029,206,32,41
+Bone silk,#FFFDDF,255,253,223
+Enchantress rose,#E3256B,227,37,107
+Harbor night,#1A4780,26,71,128
+Divine cream,#FFF8DC,255,248,220
+Mermaid stone,#00CCCC,0,204,204
+Cursed brass,#FFCC00,255,204,0
+Bleached bone,#FFFAF0,255,250,240
+Forgotten slate,#7D8471,125,132,113
+Mana Glow,#00FFFF,0,255,255
+Pyrite glow,#F8F32B,248,243,43
+Mica satin,#EBC2AF,235,194,175
+Quartz petal,#FFCBBB,255,203,187
+Void hollow,#343E40,52,62,64
+Crypt earth,#212121,33,33,33
+Crimson tide,#412227,65,34,39
+Midnight moss,#3B3C36,59,60,54
+Anchor steel,#23282B,35,40,43
+Cosmic indigo,#18171C,24,23,28
+Abyssal jade,#141613,20,22,19
+Blood velvet,#1F0E11,31,14,17
+Nightshade crown,#1D1018,29,16,24
+Deep marianas,#161A1E,22,26,30
+Absolute void,#000000,0,0,0
+Obsidian shard,#0A0A0A,10,10,10
 Thistle,#D8BFD8,216,191,216
-Thistle Crayola,#EBC7DF,235,199,223
-Chamois,#A08040,160,128,64
-Venom Green,#7FFF00,127,255,0
-Saffron yellow,#F5D033,245,208,51
-Saffron,#F4C430,244,196,48
-Mulberry Crayola,#C54B8C,197,75,140
-Shocking Pink Crayola,#FB7EFD,251,126,253
-Chocolate brown,#45322E,69,50,46
-Chocolate,#D2691E,210,105,30
-Ecru,#CDB891,205,184,145
-Extravagant pink Crayola,#FF33CC,255,51,204
-Electrician,#7DF9FF,125,249,255
-Electric Lime,#CCFF00,204,255,0
-Electric Lime Crayola,#CEFF1D,206,255,29
-Poison green,#40826D,64,130,109
-Amber,#FFBF00,255,191,0
-Bright yellowish green,#93AA00,147,170,0
-Bright yellowish pink,#FF845C,255,132,92
-Bright greenish yellow,#F4C800,244,200,0
-Bright green,#007D34,0,125,52
-Bright reddish orange,#F13A13,241,58,19
-Bright reddish purple,#7E0059,126,0,89
-Bright red,#C10020,193,0,32
-Bright orange-yellow,#FF8E00,255,142,0
-Bright orange,#FF6800,255,104,0
-Bright purple-red,#D5265B,213,38,91
-Vibrant purple,#943391,148,51,145
-Bright bluish green,#00836E,0,131,110
-Bright purple Crayola,#8F509D,143,80,157
-Bright turquoise,#08E8DE,8,232,222
-Bright yellow,#FFB300,255,179,0
-Bright green,#66FF00,102,255,0
-Bright red orange,#F75E25,247,94,37
-Bright tangerine,#FFA089,255,160,137
+Pale thistle,#EBC7DF,235,199,223
+Ashen joy,#A08040,160,128,64
+Lime flash,#7FFF00,127,255,0
+Marigold crest,#F5D033,245,208,51
+Spice amber,#F4C430,244,196,48
+Bruised berry,#C54B8C,197,75,140
+Nebula flurry,#FB7EFD,251,126,253
+Earth core,#45322E,69,50,46
+Nutmeg husk,#D2691E,210,105,30
+Bleached linen,#CDB891,205,184,145
+Pixie petal,#FF33CC,255,51,204
+Frost shard,#7DF9FF,125,249,255
+Lime surge,#CCFF00,204,255,0
+Neon glint,#CEFF1D,206,255,29
+Jade venom,#40826D,64,130,109
+Solar Relic,#FFBF00,255,191,0
+Moss glint,#93AA00,147,170,0
+Coral amber,#FF845C,255,132,92
+Solar bloom,#F4C800,244,200,0
+Elven woods,#007D34,0,125,52
+Hellfire,#F13A13,241,58,19
+Velvet curse,#7E0059,126,0,89
+Crimson core,#C10020,193,0,32
+Amber spark,#FF8E00,255,142,0
+Flame essence,#FF6800,255,104,0
+Orchid fire,#D5265B,213,38,91
+Arcane bloom,#943391,148,51,145
+Teal core,#00836E,0,131,110
+Twilight heather,#8F509D,143,80,157
+Aether spark,#08E8DE,8,232,222
+Gold coin,#FFB300,255,179,0
+Plague spore,#66FF00,102,255,0
+Magma shell,#F75E25,247,94,37
+Blush silk,#FFA089,255,160,137
 Hot pink,#FC0FC0,252,15,192
-Bright blue,#007CAD,0,124,173
-Bright lilac,#E0B0FF,224,176,255
-Bright purple,#CD00CD,205,0,205
+Azure mana,#007CAD,0,124,173
+Mist lavender,#E0B0FF,224,176,255
+Arcane surge,#CD00CD,205,0,205
 Casanova,#B85C8D,184,92,141
-Very Peri,#6667AB,102,103,171
-Ultimate Gray,#939597,147,149,151
-Illuminating,#F5DF4D,245,223,77
-Classic Blue,#0F4C81,15,76,129
-Living Coral,#FF6F61,255,111,97
-Ultra Violet,#5F4B8B,95,75,139
+Ancient petal,#6667AB,102,103,171
+Ruin slate,#939597,147,149,151
+Sunforge Spark,#F5DF4D,245,223,77
+Midnight crest,#0F4C81,15,76,129
+Phoenix feather,#FF6F61,255,111,97
+Void velvet,#5F4B8B,95,75,139
 Greenery,#88B04B,136,176,75
-Serenity,#93A9D1,147,169,209
-Rose Quartz,#F7CACA,247,202,202
-Marsala,#964F4C,150,79,76
-Radiant Orchid,#AD5E99,173,94,153
-Emerald,#009473,0,148,115
-Tangerine Tango,#DD4124,221,65,36
-Honeysuckle,#D94F70,217,79,115
-Turquoise,#45B5AA,69,181,170
+Astral Hush,#93A9D1,147,169,209
+Rose quartz,#F7CACA,247,202,202
+Sanguine Ash,#964F4C,150,79,76
+Radiant orchid,#AD5E99,173,94,153
+Emerald core,#009473,0,148,115
+Tangerine tango,#DD4124,221,65,36
+Honeysuckle,#D94F70,217,79,112
+Muted turquoise,#45B5AA,69,181,170
 Mimosa,#F0C05A,240,192,90
-Blue Iris,#5A5B9F,90,91,159
-Chili Pepper,#9B1B30,155,27,48
-Sand Dollar,#DECDBE,222,205,190
-Blue Turquoise,#53B0AE,83,176,174
+Nebula iris,#5A5B9F,90,91,159
+Pepper fire,#9B1B30,155,27,48
+Desert dust,#DECDBE,222,205,190
+Aether wave,#53B0AE,83,176,174
 Tigerlily,#E2583E,226,88,62
-Aqua Sky,#7BC4C4,123,196,196
-True Red,#BF1932,191,25,50
-Fuchsia Rose,#C74375,199,67,117
+Aqua sky,#7BC4C4,123,196,196
+Pure sanguine,#BF1932,191,25,50
+Fuchsia rose,#C74375,199,67,117
 Cerulean,#9BB7D4,155,183,212
-Lava Falls,#9A2B2E,154,43,46
-Samoan Sun,#FBC85F,251,200,95
-Orange Tiger,#F96815,249,104,21
-Rose Violet,#C0428A,192,66,138
-Amazon,#207349,192,66,138
-Nosegay,#F0BDD5,240,189,213
+Blood chasm,#9A2B2E,154,43,46
+Amber glint,#FBC85F,251,200,95
+Primal fire,#F96815,249,104,21
+Mystic rose,#C0428A,192,66,138
+Amazon,#207349,32,115,73
+Silk petal,#F0BDD5,240,189,213
 Waterspout,#96D8DE,150,216,222
-Caramel Café,#864C24,134,76,36
+Rusty shackle,#864C24,134,76,36
 Midnight,#325B74,50,91,116
-Martini Olive,#726A4E,114,106,78
-Arctic Wolf,#E0D7C5,224,215,197
-Autumn Blonde,#EED0AE,238,208,174
-Polar Night,#343540,52,53,64
-Loden Frost,#788F74,120,143,116
-Chiseled Stone,#8D8E92,141,142,146
-Viva Magenta,#BB2649,187,38,73
+Shadow lichen,#726A4E,114,106,78
+Frost parchment,#E0D7C5,224,215,197
+Sand satin,#EED0AE,238,208,174
+Abyss slate,#343540,52,53,64
+Frozen lichen,#788F74,120,143,116
+Cold steel,#8D8E92,141,142,146
+Fae Fire,#BB2649,187,38,73
+Plasma wave,#00E5D4,0,229,212
+Aether pulse,#33FFF0,51,255,240
+Neon aether,#66F5FF,102,245,255
+Ocean sigh,#7DE8E6,125,232,230
+Night iris,#3F3FBF,63,63,191
+Astral veil,#5A4FCF,90,79,207
+Astral vapor,#6B5B95,107,91,149
+Moon indigo,#4B4E8A,75,78,138
+Peach blush,#F4C2A1,244,194,161
+Peach dusk,#E8B89A,232,184,154
+Warm dune,#D8A47F,216,164,127
+Blush clay,#C98F7C,201,143,124
+Sunken ruins,#2C6E7F,44,110,127
+Deep current,#1F5C6B,31,92,107
+Storm glaze,#4A7B8C,74,123,140
+Sea shard,#5D9CA4,93,156,164
+Dustveil,#8A817C,138,129,124
+Cemetery ash,#A89F91,168,159,145
+Pale pebble,#B8B1A9,184,177,169
+Void plum,#1A1018,26,16,24
+Deep moss,#141A12,20,26,18
+Night ember,#1C1412,28,20,18
+Abyss blue,#101824,16,24,36
+Mint dew,#D8F5C0,216,245,192
+Sprout silk,#D4EEC4,212,238,196
+Sage whisp,#D4F0C8,212,240,200
+Fern mist,#DCF0D0,220,240,208
+Celadon dew,#D0F0C8,208,240,200
+Chilled shroud,#D0E4F8,208,228,248
+Ice glaze,#D2DFF7,210,223,247
+Winter ether,#D2E2F7,210,226,247
+Astral dew,#D7DDF7,215,221,247
+Pale wraith,#D7DAF7,215,218,247
+Amethyst fog,#E8D2F7,232,210,247
+Petal smoke,#EDDAF7,237,218,247
+Orchid sigh,#EED2F7,238,210,247
+Bloom haze,#F2D7F7,242,215,247
+Silk wisteria,#ECD5F5,236,213,245
+Iris violet,#9165B8,145,101,184
+Hyacinth,#9C68AD,156,104,173
+Grape mist,#8753A6,135,83,166
+Spring moss,#7DD168,125,209,104
+Pale leaf,#82C66D,130,198,109
+Wild fern,#5DB255,93,178,85
+Elven sap,#62BC54,98,188,84
+Ashen reed,#7FC46F,127,196,111
+Velvet Moss,#4BAA47,75,170,71
+Grove shadow,#429332,66,147,50
+Soft meadow,#9FD38F,159,211,143
+Glade mist,#7BBF72,123,191,114
+Forest crest,#4DB745,77,183,69
+Herbal glow,#7DCC6A,125,204,106
+Mint quartz,#8CC479,140,196,121
+Thorn bramble,#3AA33A,58,163,58
+Lunar glade,#AEDBA2,174,219,162
+Toxic glint,#4FBF42,79,191,66
+Arcane petal,#9172E5,145,114,229
+Muted indigo,#876ACC,135,106,204
+Void iris,#6F51C1,111,81,193
+Velvet moonlit,#7962D6,121,98,214
+Midnight crown,#7F5CD1,127,92,209
+Twilight haze,#9872DB,152,114,219
+Mystic petal,#967BE5,150,123,229
+Lavender dust,#AE98EA,174,152,234
+Astral bloom,#8962D6,137,98,214
+Amethyst shard,#9379D1,147,121,209
+Abyssal gaze,#6347BC,99,71,188
+Lunar veil,#967CDD,150,124,221
+Quiet violet,#8269D3,130,105,211
+Arcane storm,#7F59CC,127,89,204
+Tomb orchid,#9F85DD,159,133,221
+Mist Orchid,#B873D6,184,115,214
+Muted orchid,#AC63C6,172,99,198
+Royal plum,#8E45AD,142,69,173
+Velvet thistle,#B25DCC,178,93,204
+Royal Orchid,#AA4DC1,170,77,193
+Ashen heather,#A05FB7,160,95,183
+Ancient Violet,#A55ABC,165,90,188
+Pastel wisteria,#CE9DE0,206,157,224
+Bloom Plum,#B15BC6,177,91,198
+Amethyst dew,#BA7DD1,186,125,209
+Grim briar,#883FA8,136,63,168
+Lunar petal,#D09DE0,208,157,224
+Silent Plum,#A25ABC,162,90,188
+Wild Violet,#B35CC9,179,92,201
+Orchid fog,#BD84D6,189,132,214
+Slumber blue,#6B88D1,107,136,209
+Faded Azure,#7C99DE,124,153,222
+Deep sapphire,#5C74C8,92,116,200
+Dusty Cobalt,#6D8BD6,109,139,214
+Elden sky,#7E9FE3,126,159,227
+Glacial veil,#7193DA,113,147,218
+Ice crown,#6A8CD8,106,140,216
+Celestial fog,#89A8E8,137,168,232
+Pale Cobalt,#8AA4DF,138,164,223
+Wild Sapphire,#5D7ACD,93,122,205
+Moon Cobalt,#7290D6,114,144,214
+Frozen petal,#829EE0,130,158,224
+Azure shard,#7E94DD,126,148,221
+Silent Sky,#8EA8E5,142,168,229
+Ashen Frost,#9AB0EA,154,176,234
+Indigo mist,#8698E0,134,152,224
+Cold alloy,#8791D1,135,145,209
+Twilight gaze,#5A62BC,90,98,188
+Mystical shard,#6F7DC6,111,125,198
+Slate iris,#6E71CC,110,113,204
+Faded velvet,#8791DB,135,145,219
+Deep alloy,#4E62B2,78,98,178
+Frost silk,#A5AAE5,165,170,229
+Shadow crest,#6071C1,96,113,193
+Midnight core,#484CAD,72,76,173
+Ocean dusk,#6C89D3,108,137,211
+Elden wave,#7395DA,115,149,218
+Grim steel,#6179C8,97,121,200
+Astral frost,#7E9EE1,126,158,225
+Bramble blue,#6A86CF,106,134,207
+Ice shard,#7C99DF,124,153,223
+Silent wave,#8295E5,130,149,229
+Ghostly mist,#99A4EB,153,164,235
+Aether glow,#889FE7,136,159,231
+Cosmic haze,#7A8ADD,122,138,221
+Lunar glaze,#8F96E8,143,150,232
+Twilight silk,#787BD8,120,123,216
+Frost violet,#9A8AE6,154,138,230
+Mystic gaze,#846BCB,132,107,203
+Ashen violet,#9678D4,150,120,212
+Pale moonlit,#AC9AEB,172,154,235
+Elden curse,#8C70D0,140,112,208
+Glass orchid,#8863C2,136,99,194
+Arcane crown,#8C73D7,140,115,215
+Shadow mist,#9482DD,148,130,221
+Thorn hex,#8660BC,134,96,188
+Night velvet,#9379D5,147,121,213
+Astral iris,#9D7ED9,157,126,217
+Pale nebula,#9E8BDF,158,139,223
+Ashen plum,#9B61B6,155,97,182
+Deep heather,#8D52A9,141,82,169
+Sovereign thorn,#A35BC0,163,91,192
+Cursed petal,#9450AD,148,80,173
+Silk orchid,#AF73CD,175,115,205
+Wild thistle,#A76AC2,167,106,194
+Frost wisteria,#C18AD8,193,138,216
+Quiet petal,#B36EC7,179,110,199
+Pale briar,#C693DF,198,147,223
+Elden bloom,#AD6CC3,173,108,195
+Amethyst glaze,#C37ED1,195,126,209
+Lunar mauve,#C287D8,194,135,216

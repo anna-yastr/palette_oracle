@@ -18,50 +18,98 @@ if (fs.existsSync(FONT_PATH)) {
 const WIDTH    = 1024;
 const HEIGHT   = 1024;
 const CENTER_X = WIDTH / 2;
-const PAD_X    = 80;
+const PAD_X    = 90;
 
-const SEPARATOR_Y   = 816;
-const SIGIL_Y       = 848;
-const LORE_Y_FIRST  = 876;
-const LORE_Y_SECOND = 901;
-const LORE_Y_THIRD  = 924;
-const LORE_Y_CENTER = (LORE_Y_FIRST + LORE_Y_SECOND) / 2;
+// ── oracle zone ───────────────────────────────────────────────────────────────
+//
+//  670  ─── SEPARATOR_Y  (dashes + diamond)
+//  714  ─── SIGIL_Y      ("— Знамение —")
+//  [prophecy block centred in 754…888, LINE_STEP=48]
+//  920  ─── FOOTER_Y     (attribution, pinned; bottom padding = 122px)
 
+const SEPARATOR_Y    = 670;
+const SIGIL_Y        = 714;
+const PROPHECY_TOP   = 744;
+const PROPHECY_BOT   = 878;
+const PROPHECY_MID   = (PROPHECY_TOP + PROPHECY_BOT) / 2;  // 811
+const FOOTER_Y       = 920;
+const LINE_STEP      = 38;
+const PROPHECY_PAD_X = 140;   // ~12% narrower than PAD_X → poetic line width
+
+// ── separator geometry ────────────────────────────────────────────────────────
 const SEP_D   = 4;
-const SEP_LEN = 90;
-const SEP_GAP = SEP_D + 10;
+const SEP_LEN = 110;
+const SEP_GAP = SEP_D + 12;
 
+// ── colours ───────────────────────────────────────────────────────────────────
 const COLOR_SEP       = 'rgba(35, 28, 20, 0.55)';
 const COLOR_SIGIL     = 'rgba(28, 20, 14, 0.92)';
 const COLOR_LORE      = 'rgba(28, 20, 14, 0.88)';
-const COLOR_LORE_DIM  = 'rgba(28, 20, 14, 0.704)';
-const COLOR_LORE_DIM2 = 'rgba(28, 20, 14, 0.50)';
+const COLOR_LORE_DIM  = 'rgba(28, 20, 14, 0.76)';
+const COLOR_LORE_DIM2 = 'rgba(28, 20, 14, 0.56)';
+const COLOR_FOOTER    = 'rgba(28, 20, 14, 0.78)';
 
-// ── text utilities ────────────────────────────────────────────────────────────
+// ── helpers ───────────────────────────────────────────────────────────────────
 
-function wrapLine(ctx, text, maxWidth) {
+// Split lore text into individual sentences (one line each).
+// Handles both \n paragraph breaks and in-sentence punctuation (. ! ?).
+function splitIntoSentences(loreText) {
+  return loreText
+    .split('\n')
+    .flatMap(para => {
+      const trimmed = para.trim();
+      if (!trimmed) return [];
+      // split on sentence-ending punctuation followed by whitespace
+      return trimmed.replace(/([.!?])\s+/g, '$1\n').split('\n').map(s => s.trim()).filter(Boolean);
+    });
+}
+
+// Particles that must not be left at the end of a line before a break.
+const NO_BREAK_AFTER = new Set(['не', 'ни', 'бы', 'же', 'ли', 'бь']);
+
+// Split one sentence into two lines at the word boundary that equalises widths.
+function splitIntoTwo(ctx, text, fontSpec, maxWidth) {
+  ctx.font = fontSpec;
   const words = text.split(' ');
-  const lines = [];
-  let current = '';
-  for (const word of words) {
-    const test = current ? `${current} ${word}` : word;
-    if (ctx.measureText(test).width > maxWidth && current) {
-      lines.push(current);
-      current = word;
-    } else {
-      current = test;
+  if (words.length <= 1) return [text];
+  let bestSplit = Math.floor(words.length / 2);
+  let bestScore = Infinity;
+  for (let i = 1; i < words.length; i++) {
+    if (NO_BREAK_AFTER.has(words[i - 1].toLowerCase())) continue;
+    const l1 = words.slice(0, i).join(' ');
+    const l2 = words.slice(i).join(' ');
+    const w1 = ctx.measureText(l1).width;
+    const w2 = ctx.measureText(l2).width;
+    if (w1 <= maxWidth && w2 <= maxWidth) {
+      const score = Math.abs(w1 - w2);
+      if (score < bestScore) { bestScore = score; bestSplit = i; }
     }
   }
-  if (current) lines.push(current);
-  return lines;
+  return [words.slice(0, bestSplit).join(' '), words.slice(bestSplit).join(' ')];
 }
 
-function getWrappedLines(ctx, loreText, maxWidth) {
-  const paragraphs = loreText.split('\n').map(p => p.trim()).filter(Boolean);
-  return paragraphs.flatMap(p => wrapLine(ctx, p, maxWidth)).slice(0, 3);
+function fitSize(ctx, text, maxWidth, baseSize, minSize = 18) {
+  let size = baseSize;
+  while (size >= minSize) {
+    ctx.font = `italic ${size}px "${forumFamily}"`;
+    if (ctx.measureText(text).width <= maxWidth) break;
+    size -= 1;
+  }
+  return size;
 }
 
-// ── drawing helpers ───────────────────────────────────────────────────────────
+function drawStar4(ctx, cx, cy, outerR, innerR) {
+  ctx.beginPath();
+  for (let i = 0; i < 8; i++) {
+    const angle = (i * Math.PI / 4) - Math.PI / 2;
+    const r = i % 2 === 0 ? outerR : innerR;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+}
 
 function drawDiamond(ctx, cx, cy, half) {
   ctx.beginPath();
@@ -97,38 +145,83 @@ function drawSigil(ctx, typeName) {
   ctx.letterSpacing = '0px';
 }
 
-function drawLore(ctx, loreText) {
-  const lines = getWrappedLines(ctx, loreText, WIDTH - PAD_X * 2);
+// Prophecy:
+//   • 1 sentence = 1 line, max 3, no word-wrap
+//   • font shrinks to fit narrowed PROPHECY_PAD_X width
+//   • lines cascade in size and opacity
+//   • block vertically centred; footer pinned at FOOTER_Y
+function drawLore(ctx, loreText, author = null) {
+  const MAX_W     = WIDTH - PROPHECY_PAD_X * 2;
+  const BASE_SIZE = [33, 29, 26];
+  const colors    = [COLOR_LORE, COLOR_LORE_DIM, COLOR_LORE_DIM2];
 
-  ctx.textAlign = 'center';
+  const sentences = splitIntoSentences(loreText).slice(0, 3);
 
-  if (lines.length === 1) {
-    ctx.font      = `italic 25px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE;
-    ctx.fillText(lines[0], CENTER_X, LORE_Y_CENTER);
-  } else if (lines.length === 2) {
-    ctx.font      = `italic 25px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE;
-    ctx.fillText(lines[0], CENTER_X, LORE_Y_FIRST);
-    ctx.font      = `italic 24px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE_DIM;
-    ctx.fillText(lines[1], CENTER_X, LORE_Y_SECOND);
+  // 1 sentence → wrap into 2 equal-width lines; 2-3 sentences → one line each
+  let lines, lineSizes, lineColors;
+  if (sentences.length === 1) {
+    const fontSpec = `italic ${BASE_SIZE[0]}px "${forumFamily}"`;
+    lines      = splitIntoTwo(ctx, sentences[0], fontSpec, MAX_W);
+    lineSizes  = lines.map(() => BASE_SIZE[0]);
+    lineColors = lines.map(() => COLOR_LORE);
   } else {
-    ctx.font      = `italic 25px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE;
-    ctx.fillText(lines[0], CENTER_X, LORE_Y_FIRST);
-    ctx.font      = `italic 24px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE_DIM;
-    ctx.fillText(lines[1], CENTER_X, LORE_Y_SECOND);
-    ctx.font      = `italic 22px "${forumFamily}"`;
-    ctx.fillStyle = COLOR_LORE_DIM2;
-    ctx.fillText(lines[2], CENTER_X, LORE_Y_THIRD);
+    lines      = sentences;
+    lineSizes  = sentences.map((s, i) => fitSize(ctx, s, MAX_W, BASE_SIZE[i]));
+    lineColors = colors.slice(0, sentences.length);
+  }
+
+  const blockH = (lines.length - 1) * LINE_STEP;
+  // +8px optical shift: baseline sits below visual text centre
+  const startY = PROPHECY_MID + 8 - blockH / 2;
+
+  const starColor = 'rgba(28, 20, 14, 0.55)';
+
+  ctx.fillStyle     = starColor;
+  ctx.textAlign     = 'center';
+  ctx.letterSpacing = '0px';
+  drawStar4(ctx, CENTER_X, PROPHECY_TOP, 6, 1.8);
+
+  lines.forEach((line, i) => {
+    ctx.font      = `italic ${lineSizes[i]}px "${forumFamily}"`;
+    ctx.fillStyle = lineColors[i];
+    ctx.fillText(line, CENTER_X, startY + i * LINE_STEP);
+  });
+
+  ctx.fillStyle = starColor;
+  drawStar4(ctx, CENTER_X, PROPHECY_BOT, 6, 1.8);
+
+  if (author) {
+    const prefix = ', для вас особое знамение';
+    ctx.letterSpacing = '0px';
+
+    ctx.font    = `bold italic 20px "${forumFamily}"`;
+    const nameW = ctx.measureText(author).width;
+    const ascent = ctx.measureText(author).actualBoundingBoxAscent ?? 7;
+
+    ctx.font      = `italic 20px "${forumFamily}"`;
+    const prefixW = ctx.measureText(prefix).width;
+    const tw      = nameW + prefixW;
+    const startX  = CENTER_X - tw / 2;
+
+    ctx.fillStyle = COLOR_FOOTER;
+    ctx.textAlign = 'left';
+    ctx.font = `bold italic 20px "${forumFamily}"`;
+    ctx.fillText(author, startX, FOOTER_Y);
+    ctx.font = `italic 20px "${forumFamily}"`;
+    ctx.fillText(prefix, startX + nameW, FOOTER_Y);
+
+    const D_GAP  = 14;
+    const D_HALF = 3;
+    drawDiamond(ctx, startX - D_GAP,      FOOTER_Y - ascent / 2, D_HALF);
+    drawDiamond(ctx, startX + tw + D_GAP, FOOTER_Y - ascent / 2, D_HALF);
+
+    ctx.textAlign = 'center';
   }
 }
 
 // ── main export ───────────────────────────────────────────────────────────────
 
-async function renderPaletteCard(palette, loreText, typeName = 'Знамение') {
+async function renderPaletteCard(palette, loreText, typeName = 'Знамение', author = null) {
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx    = canvas.getContext('2d');
 
@@ -137,7 +230,7 @@ async function renderPaletteCard(palette, loreText, typeName = 'Знамение
 
   drawSeparator(ctx);
   drawSigil(ctx, typeName);
-  drawLore(ctx, loreText);
+  drawLore(ctx, loreText, author);
 
   return canvas.toBuffer('image/png');
 }

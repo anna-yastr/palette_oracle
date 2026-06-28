@@ -2,6 +2,11 @@
 node_modules/
 .env
 
+# Test scripts
+test_render.js
+test_user_palette.js
+test_*.png
+
 # Python cache
 __pycache__/
 *.pyc

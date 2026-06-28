@@ -1,8 +1,9 @@
-#the first version
 """Generate a palette card from an input image.
 
-Usage: put an image in `Palette_input/` and run this script.
-It saves a PNG into `Palette_output/`.
+CLI usage (via bot):
+    py palette_maker.py --input <path> --output <path> --title <str> --author <str>
+
+Standalone usage: drop an image into Palette_input/ and run without args.
 """
 import os
 import sys
@@ -44,22 +45,6 @@ PAPER_TYPES = {
     },
 }
 
-WITCH_OVERLAYS = {
-    "dark":  ["Dead", "Hollow", "Forgotten"],
-    "cold":  ["Moon", "Frost", "Silent"],
-    "warm":  ["Burnt", "Cinder", "Ashen"],
-    "wet":   ["Drowned", "Salt", "Brine"],
-    "decay": ["Rotten", "Wilted", "Mold"],
-}
-
-# Contextual prefixes to replace "Crayola" suffix based on color character
-COLOR_PREFIXES = {
-    'vivid':    ['Sharp', 'Raw', 'Feral', 'Sour', 'Bitter'],
-    'muted':    ['Dead', 'Wilted', 'Rotten', 'Drowned', 'Hollow',
-                 'Forgotten', 'Bruised', 'Mold', 'Ashen', 'Dusty', 'Stale', 'Bleached'],
-    'material': ['Bone', 'Rust', 'Clay', 'Moss', 'Smoke', 'Salt',
-                 'Frost', 'Mud', 'Slate', 'Tarnished', 'Cinder', 'Murky'],
-}
 
 # Primary color name source: loaded from shoko_colors.csv
 SHOKO_COLORS_RGB = {}   # rgb → name
@@ -156,46 +141,6 @@ def format_title_from_filename(filename):
     return ' '.join(w.capitalize() for w in stem.split() if w.strip())
 
 
-def _clean_name_for_overlay(name):
-    """Strip vendor suffixes and trim to ≤2 words for clean overlay composition."""
-    name = name.replace(' Crayola', '').replace(' crayola', '').strip()
-    words = name.split()
-    return ' '.join(words[-2:] if len(words) > 2 else words)
-
-
-def _crayola_to_prefix(name, rgb):
-    """Replace ' Crayola' suffix with a category-appropriate prefix based on HSV."""
-    if ' Crayola' not in name and ' crayola' not in name:
-        return name
-    base = name.replace(' Crayola', '').replace(' crayola', '').strip()
-    _, s, v = rgb_to_hsv(rgb)
-    if s > 55 and v > 60:
-        pool = COLOR_PREFIXES['vivid']
-    elif v < 35 or s < 15:
-        pool = COLOR_PREFIXES['muted']
-    else:
-        pool = COLOR_PREFIXES['material']
-    prefix = pool[(rgb[0] + rgb[1] + rgb[2]) % len(pool)]
-    return f"{prefix} {base}"
-
-
-def _apply_witch_overlay(name, rgb, rng):
-    """Prepend a contextual witch token to a (cleaned) color name."""
-    clean = _clean_name_for_overlay(name)
-    h, _s, v = rgb_to_hsv(rgb)
-    if v < 30:
-        cats = ['dark', 'decay']
-    elif v > 75:
-        cats = ['cold']
-    elif h < 60 or h > 300:
-        cats = ['warm', 'dark']
-    else:
-        cats = ['wet', 'cold']
-    cat = rng.choice(cats)
-    tokens = WITCH_OVERLAYS.get(cat, [])
-    if not tokens:
-        return clean
-    return f"{rng.choice(tokens)} {clean}"
 
 
 def find_nearest_shoko(rgb, exclude=None):
@@ -226,33 +171,12 @@ def find_nearest_shoko(rgb, exclude=None):
     return (best_name, best_d) if best_name is not None else (None, float('inf'))
 
 
-def choose_curated_names_for_card(colors, rng=None, title=None):
-    """Select unique names for a palette card.
-    - Nearest-by-LAB match from shoko_colors.csv
-    - Positions 0 and 1 always receive a witch overlay token
-    - Growing local-exclude per slot guarantees no token-overlap duplicates
-    """
-    if rng is None:
-        rng = random
-
-    n = len(colors)
-
-    class _RNGProxy:
-        def __init__(self, base):
-            self._base = base
-        def random(self):   return self._base.random()
-        def choice(self, s): return self._base.choice(s)
-        def randint(self, a, b): return self._base.randint(a, b)
-        def sample(self, s, k):  return self._base.sample(s, k)
-    rngp = _RNGProxy(rng)
-
-    overlay_indices = set() if n == 0 else ({0} if n == 1 else {0, 1})
-
+def choose_curated_names_for_card(colors):
+    """Select unique names for a palette card via nearest-by-LAB match."""
     selected_names = []
     used_names = set()
 
-    for i, rgb in enumerate(colors):
-        allow_overlay = (i in overlay_indices)
+    for rgb in colors:
         chosen = None
         local_exclude = set(used_names)
 
@@ -260,12 +184,13 @@ def choose_curated_names_for_card(colors, rng=None, title=None):
             shoko_name, _ = find_nearest_shoko(rgb, exclude=local_exclude)
             if shoko_name is None:
                 break
-            cand = _apply_witch_overlay(shoko_name, rgb, rngp) if allow_overlay else _crayola_to_prefix(shoko_name, rgb)
-            if cand not in used_names and not any(is_similar_name(cand, u) for u in used_names):
-                chosen = cand
+            if shoko_name not in used_names and not any(is_similar_name(shoko_name, u) for u in used_names):
+                chosen = shoko_name
                 break
-            local_exclude.add(cand)
+            local_exclude.add(shoko_name)
 
+        if chosen and len(chosen.split()) > 3:
+            chosen = ' '.join(chosen.split()[-3:])
         selected_names.append(chosen or 'Color')
         used_names.add(chosen or 'Color')
 
@@ -471,7 +396,7 @@ def find_input_images():
     return files
 
 
-def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name, out_path, author=None):
+def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name, out_path):
     w, h = bg_image.size
     base = bg_image.copy().convert('RGBA')
 
@@ -514,12 +439,18 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
     def has_cyrillic(text):
         return any('Ѐ' <= c <= 'ӿ' for c in text)
 
-    title_font_size = 72 if len(title) <= 16 else int(72 * 0.85)
-    title_fonts = forum_fonts + try_fonts if has_cyrillic(title) else try_fonts
+    title_font_size = 58 if len(title) <= 16 else int(58 * 0.88)
+    title_fonts = try_fonts
     font_title      = load_any_font(title_fonts, title_font_size)
     font_subtitle   = load_any_font(try_fonts, 30)
-    font_label      = load_any_font(try_fonts, 26)
+    font_label       = load_any_font(try_fonts, 26)
     font_label_small = font_label
+    # Fixed reference line height — measured once from a string that includes
+    # both ascenders (A) and descenders (g) so every label row is identical.
+    _tmp_draw = ImageDraw.Draw(Image.new('RGBA', (1, 1)))
+    label_line_h = text_size(_tmp_draw, 'Ag', font_label)[1]
+    del _tmp_draw
+    LABEL_LINE_GAP = 3
 
     card_margin_x = int(w * 0.08)
     card_margin_y = int(h * 0.08)
@@ -533,12 +464,8 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
     border_color = (90, 76, 65, 180)
     paper_rgb = paper_color_from_hex(paper['hex'])
     paper_lum = (0.299 * paper_rgb[0] + 0.587 * paper_rgb[1] + 0.114 * paper_rgb[2]) / 255.0
-    if paper_lum < 0.45:
-        text_color = (245, 235, 220, 255)
-        title_shadow_color = (0, 0, 0, 180)
-    else:
-        text_color = (40, 36, 32, 255)
-        title_shadow_color = (20, 18, 16, 180)
+    text_color  = (245, 235, 220, 255) if paper_lum < 0.45 else (40, 36, 32, 255)
+    label_color = (245, 235, 220, 180) if paper_lum < 0.45 else (40, 36, 32, 170)
 
     card_layer = Image.new('RGBA', (w, h), (0, 0, 0, 0))
     cdraw = ImageDraw.Draw(card_layer)
@@ -548,14 +475,14 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
     title_text = title
     title_w, _ = text_size(cdraw, title_text, font_title)
     title_x = card_x + (card_w - title_w) / 2
-    title_y = card_y + card_h * 0.06 - 15
+    title_y = card_y + card_h * 0.06 + 1
 
     content_x = card_x + int(card_w * 0.08)
     content_w = card_w - int(card_w * 0.16)
-    row_h = int(card_h * 0.085)
-    row_spacing = int(card_h * 0.045)
+    row_h = int(card_h * 0.068)
+    row_spacing = int(card_h * 0.030)
     n_colors = len(colors)
-    content_bottom_y = card_y + card_h * 0.84 - 15
+    content_bottom_y = card_y + card_h * 0.66
     content_y = int(content_bottom_y - (n_colors * row_h + (n_colors - 1) * row_spacing))
     label_area = int(content_w * 0.30)
     stripe_area = content_w - label_area - int(card_w * 0.02)
@@ -571,26 +498,21 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
         star_points.append((star_center_x + r * math.cos(angle), star_center_y + r * math.sin(angle)))
     cdraw.polygon(star_points, fill=star_fill)
 
-    shadow_offset = 2
-    cdraw.text((title_x + shadow_offset, title_y + shadow_offset), title_text,
-               font=font_title, fill=title_shadow_color)
-    for dx in range(0, 2):
-        for dy in range(0, 2):
-            cdraw.text((title_x + dx, title_y + dy), title_text, font=font_title, fill=text_color)
+    cdraw.text((int(title_x), int(title_y)), title_text, font=font_title, fill=text_color)
 
     for i, (col, name) in enumerate(zip(colors, names)):
         row_y = content_y + i * (row_h + row_spacing)
         row_x = content_x
         label_x = row_x
-        lw, lh = text_size(cdraw, name, font_label)
+        lw, _ = text_size(cdraw, name, font_label)
         words = name.replace('-', ' ').split()
         if lw <= label_area or len(words) <= 1:
-            font_to_use, fw, fh = font_label, lw, lh
-            if fw > label_area:
+            font_to_use = font_label
+            if lw > label_area:
                 font_to_use = font_label_small
-                fw, fh = text_size(cdraw, name, font_label_small)
-            label_y = row_y + (row_h - fh) / 2
-            cdraw.text((label_x, label_y), name, font=font_to_use, fill=text_color)
+            label_y = int(row_y + (row_h - label_line_h) / 2)
+            cdraw.text((label_x, label_y), name, font=font_to_use, fill=label_color)
+            text_bottom = label_y + label_line_h
         else:
             best_split, best_max_w = 1, float('inf')
             for split in range(1, len(words)):
@@ -600,12 +522,11 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
                     best_max_w, best_split = max(w1, w2), split
             line1 = ' '.join(words[:best_split])
             line2 = ' '.join(words[best_split:])
-            lh1 = text_size(cdraw, line1, font_label_small)[1]
-            lh2 = text_size(cdraw, line2, font_label_small)[1]
-            total_h = lh1 + 2 + lh2
+            total_h = label_line_h * 2 + LABEL_LINE_GAP
             start_y = int(row_y + (row_h - total_h) / 2)
-            cdraw.text((label_x, start_y), line1, font=font_label_small, fill=text_color)
-            cdraw.text((label_x, start_y + lh1 + 2), line2, font=font_label_small, fill=text_color)
+            cdraw.text((label_x, start_y), line1, font=font_label_small, fill=label_color)
+            cdraw.text((label_x, start_y + label_line_h + LABEL_LINE_GAP), line2, font=font_label_small, fill=label_color)
+            text_bottom = start_y + total_h
 
         factor = width_factors[i]
         stripe_w = max(1, int(stripe_area * factor))
@@ -626,79 +547,41 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
         mdraw.rounded_rectangle([0, 0, stripe_rect[2] - stripe_rect[0], stripe_h], radius=stripe_radius, fill=255)
         card_layer.paste(stripe, (stripe_x, stripe_y), mask)
 
-        underline_y = row_y + row_h + 4
+        underline_y = text_bottom + 14
         cdraw.line([label_x, underline_y, label_x + int(label_area * 0.8), underline_y],
                    fill=(120, 100, 86, 140), width=1)
 
-    if author:
-        author_text = f'Вдохновлено {author}'
-        author_font = load_any_font(
-            [
-                str(ROOT.parent / 'fonts' / 'Forum-Regular.ttf'),
-                '../fonts/Forum-Regular.ttf',
-            ] + try_fonts,
-            22,
-        )
-        bottom_area_top = card_y + card_h * 0.84 - 15
-        bottom_area_bot = card_y + card_h
-        author_y = int(bottom_area_top + (bottom_area_bot - bottom_area_top) * 0.40)
-        aw, _ = text_size(cdraw, author_text, author_font)
-        author_x = card_x + (card_w - aw) / 2
-        cdraw.text((int(author_x), author_y), author_text, font=author_font, fill=text_color)
-
     base = Image.alpha_composite(base, card_layer)
 
-    # ── watermark (mirrors imageRenderer.js drawWatermark) ──────────────────
+    # ── watermark ────────────────────────────────────────────────────────────
+    wm_font  = load_any_font(forum_fonts + try_fonts, 19)
+    WM_Y     = 112
+    WM_COLOR = (28, 20, 14, 112)
+
+    # text drawn directly on base (PIL text renders correctly at low alpha)
     wm_draw = ImageDraw.Draw(base)
-    # Forum first (same font as imageRenderer.js), then clean system serifs
-    wm_font = load_any_font(
-        [
-            str(ROOT.parent / 'fonts' / 'Forum-Regular.ttf'),
-            '../fonts/Forum-Regular.ttf',
-            'C:/Windows/Fonts/georgia.ttf',
-            'C:/Windows/Fonts/Georgia.ttf',
-        ] + try_fonts,
-        14,
-    )
+    wm_text  = 'AME TANAMI'
+    try:
+        tw = wm_draw.textlength(wm_text, font=wm_font)
+    except Exception:
+        bb = wm_draw.textbbox((0, 0), wm_text, font=wm_font)
+        tw = bb[2] - bb[0]
+    tx = w / 2 - tw / 2
+    wm_draw.text((int(tx), WM_Y), wm_text, font=wm_font, fill=WM_COLOR, anchor='lm')
 
-    WM_Y        = 102
-    WM_MID_GAP  = 30
-    WM_D_SIDE   = 3
-    WM_D_CENTER = 2
-    WM_SPACING  = 2
-    WM_COLOR    = (28, 20, 14, 112)   # rgba(28,20,14,0.50)
-
-    def _cw(ch):
-        try:
-            return wm_draw.textlength(ch, font=wm_font)
-        except Exception:
-            bb = wm_draw.textbbox((0, 0), ch, font=wm_font)
-            return max(bb[2] - bb[0], 3)
-
-    def _tw(text):
-        return sum(_cw(c) for c in text) + WM_SPACING * max(0, len(text) - 1)
-
-    lw      = _tw('THE PALETTE ORACLE')
-    rw      = _tw('AME TANAMI')
-    total_w = lw + WM_MID_GAP + rw
-    sx      = w / 2 - total_w / 2
-
-    # anchor='lm' centres each glyph vertically on WM_Y → diamonds align exactly
-    for text, ox in [('THE PALETTE ORACLE', sx), ('AME TANAMI', sx + lw + WM_MID_GAP)]:
-        cx = ox
-        for ch in text:
-            wm_draw.text((int(cx), WM_Y), ch, font=wm_font, fill=WM_COLOR, anchor='lm')
-            cx += _cw(ch) + WM_SPACING
-
-    def _diamond(cx, cy, half):
-        wm_draw.polygon(
-            [(cx, cy - half), (cx + half, cy), (cx, cy + half), (cx - half, cy)],
-            fill=WM_COLOR,
+    # diamonds on a separate overlay so alpha_composite blends them correctly
+    d_overlay = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+    d_draw    = ImageDraw.Draw(d_overlay)
+    D_GAP   = 14
+    D_HALF  = 4
+    D_COLOR = (28, 20, 14, 200)   # true 50% — correct via alpha_composite
+    for cx in (tx - D_GAP, tx + tw + D_GAP):
+        d_draw.polygon(
+            [(cx, WM_Y - D_HALF), (cx + D_HALF, WM_Y),
+             (cx, WM_Y + D_HALF), (cx - D_HALF, WM_Y)],
+            fill=D_COLOR,
         )
-
-    _diamond(sx + lw + WM_MID_GAP / 2, WM_Y, WM_D_CENTER)
-    _diamond(sx - 10,                  WM_Y, WM_D_SIDE)
-    _diamond(sx + total_w + 10,        WM_Y, WM_D_SIDE)
+    base = Image.alpha_composite(base, d_overlay)
     # ────────────────────────────────────────────────────────────────────────
 
     base.convert('RGB').save(out_path, 'PNG')
@@ -707,14 +590,13 @@ def draw_palette_card(bg_image, colors, names, title, width_factors, paper_name,
 def process_single_image(src_path, title=None, author=None, out_path=None):
     src = Path(src_path)
     img = Image.open(src)
-    bg  = scale_and_crop_to_size(img, size=(960, 960)).convert('RGB')
+    bg  = scale_and_crop_to_size(img, size=(1024, 1024)).convert('RGB')
     bg  = bg.filter(ImageFilter.GaussianBlur(radius=70))
 
     colors  = get_dominant_colors(img, n=5, thumb_size=200, min_L=8, max_L=92, min_delta=15, use_kmeans=True)
     avg_lum = sum((0.299 * r + 0.587 * g + 0.114 * b) / 255.0 for r, g, b in colors) / max(1, len(colors))
 
     paper_seed  = random.Random(src.stem)
-    naming_seed = random.Random(src.stem)
     paper_name  = choose_paper_type(avg_lum, rng=paper_seed)
 
     colors_list = list(colors)
@@ -760,13 +642,13 @@ def process_single_image(src_path, title=None, author=None, out_path=None):
             colors_list = adjusted_colors
 
     colors       = tuple(colors_list)
-    names        = choose_curated_names_for_card(colors, rng=naming_seed)
+    names        = choose_curated_names_for_card(colors)
     width_seed   = random.Random(src.stem)
     width_factors = [width_seed.uniform(0.55, 0.96) for _ in colors]
 
-    card_title = title if title else format_title_from_filename(src.name)
+    card_title = title if title else 'The Palette Oracle'
     dest       = Path(out_path) if out_path else OUT_DIR / f"{src.stem}_palette.png"
-    draw_palette_card(bg, colors, names, card_title, width_factors, paper_name, dest, author=author)
+    draw_palette_card(bg, colors, names, card_title, width_factors, paper_name, dest)
     print('Saved palette to', dest)
 
 

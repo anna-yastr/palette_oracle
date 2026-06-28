@@ -23,14 +23,13 @@ function downloadFile(url, destPath) {
   });
 }
 
-function generateUserPalette(imagePath, title, author, outputPath) {
+function generateUserPalette(imagePath, title, outputPath) {
   return new Promise((resolve, reject) => {
     const proc = spawn('py', [
       PALETTE_PY,
       '--input',  imagePath,
       '--output', outputPath,
       '--title',  title,
-      '--author', author,
     ], { cwd: SRC_DIR });
     let stderr = '';
     proc.stderr.on('data', d => { stderr += d.toString(); });
@@ -108,18 +107,21 @@ bot.start(async (ctx) => {
       caption: '✦ Глаза Оракула открыты ✦\n\nКаждая палитра несёт знамение.',
       ...Markup.inlineKeyboard([
         [Markup.button.callback('✦ Открыть знамение ✦', 'new_omen')],
-        [Markup.button.callback('✦ Создать свою палитру ✦',  'create_palette')],
+        [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
       ]),
     },
   );
+});
+
+bot.command('new_omen', async (ctx) => {
+  const { paletteHistory = [] } = session.get(ctx.from.id) ?? {};
+  await sendOmen(ctx, getRandomPalette(new Set(paletteHistory)), { deleteMessage: false });
 });
 
 bot.action('new_omen', async (ctx) => {
   await ctx.answerCbQuery();
   const { paletteHistory = [] } = session.get(ctx.from.id) ?? {};
   const caption = ctx.callbackQuery?.message?.caption ?? '';
-  // удалять только карточки знамений (caption начинается с тире)
-  // стартовая карточка и пользовательские палитры (без caption) остаются
   const shouldDelete = caption.startsWith('—');
   await sendOmen(ctx, getRandomPalette(new Set(paletteHistory)), { deleteMessage: shouldDelete });
 });
@@ -134,11 +136,21 @@ bot.action(/^reroll:(.+)$/, async (ctx) => {
 
 // ── palette creation flow ─────────────────────────────────────────────────────
 
+bot.command('create_palette', async (ctx) => {
+  const last = paletteCooldown.get(ctx.from.id) ?? 0;
+  if (Date.now() - last < PALETTE_COOLDOWN_MS) {
+    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайся через минуту.');
+    return;
+  }
+  userFlows.set(ctx.from.id, { step: 'awaiting_image' });
+  await ctx.reply('✦ Пришли изображение — я извлеку из него палитру ✦');
+});
+
 bot.action('create_palette', async (ctx) => {
   await ctx.answerCbQuery();
   const last = paletteCooldown.get(ctx.from.id) ?? 0;
   if (Date.now() - last < PALETTE_COOLDOWN_MS) {
-    await ctx.reply('Связь с Оракулом на мгновение потеряна.');
+    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайся через минуту.');
     return;
   }
   userFlows.set(ctx.from.id, { step: 'awaiting_image' });
@@ -162,19 +174,13 @@ bot.on('photo', async (ctx) => {
     return;
   }
 
-  userFlows.set(ctx.from.id, { step: 'awaiting_name', imagePath: tmpImg });
-  await ctx.reply('✦ Дай палитре имя ✦');
+  userFlows.set(ctx.from.id, { step: 'awaiting_author', imagePath: tmpImg });
+  await ctx.reply('✦ Назови своё имя ✦');
 });
 
 bot.on('text', async (ctx) => {
   const flow = userFlows.get(ctx.from.id);
   if (!flow) return;
-
-  if (flow.step === 'awaiting_name') {
-    userFlows.set(ctx.from.id, { ...flow, step: 'awaiting_author', paletteName: ctx.message.text });
-    await ctx.reply('✦ Назови своё имя ✦');
-    return;
-  }
 
   if (flow.step === 'awaiting_author') {
     const authorName = ctx.message.text;
@@ -184,13 +190,18 @@ bot.on('text', async (ctx) => {
     const waiting    = await ctx.reply('Оракул читает цвета…');
 
     try {
-      await generateUserPalette(flow.imagePath, flow.paletteName, authorName, outputPath);
+      await generateUserPalette(flow.imagePath, 'The Palette Oracle', outputPath);
+      const { text: lore, typeName } = generateLore(new Set());
+      const imageBuffer = await renderPaletteCard({ image: outputPath }, lore, typeName, authorName);
       await ctx.replyWithPhoto(
-        { source: outputPath },
-        Markup.inlineKeyboard([
-          [Markup.button.callback('✦ Открыть знамение ✦',     'new_omen')],
-          [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
-        ]),
+        { source: imageBuffer },
+        {
+          caption: `✦ ${typeName} ✦\n${lore}`,
+          ...Markup.inlineKeyboard([
+            [Markup.button.callback('✦ Открыть знамение ✦',     'new_omen')],
+            [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
+          ]),
+        },
       );
       paletteCooldown.set(ctx.from.id, Date.now());
     } catch (err) {
