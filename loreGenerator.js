@@ -192,8 +192,8 @@ function generateLore(excludePrimaries = new Set()) {
   const remaining    = 3 - primaryCount;
   const roll         = Math.random();
 
-  // ~3% chance: three lines — только если primary = 1 предложение
-  if (roll < 0.03 && remaining >= 2) {
+  // ~0.2% chance: three lines — только если primary = 1 предложение
+  if (roll < 0.002 && remaining >= 2) {
     const otherTypes  = TYPE_NAMES.filter(t => t !== typeName);
     const shuffled    = otherTypes.sort(() => Math.random() - 0.5);
     const secPool     = PREDICTION_TYPES[shuffled[0]].filter(l => countSentences(l) === 1);
@@ -205,8 +205,8 @@ function generateLore(excludePrimaries = new Set()) {
     }
   }
 
-  // ~20% chance: две строки — только если есть место
-  if (roll < 0.23 && remaining >= 1) {
+  // ~3% chance: две строки — только если есть место
+  if (roll < 0.032 && remaining >= 1) {
     const otherTypes = TYPE_NAMES.filter(t => t !== typeName);
     const otherPool  = PREDICTION_TYPES[otherTypes[Math.floor(Math.random() * otherTypes.length)]];
     const secPool    = otherPool.filter(l => countSentences(l) <= remaining);

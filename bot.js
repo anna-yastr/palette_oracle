@@ -8,6 +8,8 @@ const { Telegraf, Markup } = require('telegraf');
 const { getRandomPalette, getPaletteById } = require('./palettes');
 const { generateLore } = require('./loreGenerator');
 const { renderPaletteCard } = require('./imageRenderer');
+const { track, buildStats, ADMIN_ID } = require('./stats');
+const { containsProfanity } = require('./profanity');
 
 const SRC_DIR     = path.join(__dirname, 'palette_oracle_src');
 const PALETTE_PY  = path.join(SRC_DIR, 'palette_maker.py');
@@ -82,6 +84,8 @@ async function sendOmen(ctx, palette, { addToPaletteHistory = true, deleteMessag
     return;
   }
 
+  track(ctx.from.id, 'omen_shown', { typeName, phrase: primaryLine });
+
   session.set(ctx.from.id, {
     palette,
     paletteHistory: addToPaletteHistory
@@ -121,13 +125,15 @@ bot.command('new_omen', async (ctx) => {
 bot.action('new_omen', async (ctx) => {
   await ctx.answerCbQuery();
   const { paletteHistory = [] } = session.get(ctx.from.id) ?? {};
-  const caption = ctx.callbackQuery?.message?.caption ?? '';
-  const shouldDelete = caption.startsWith('—');
+  // omen cards carry a reroll button; start and user palette cards do not
+  const buttons = ctx.callbackQuery?.message?.reply_markup?.inline_keyboard?.flat() ?? [];
+  const shouldDelete = buttons.some(b => b.callback_data?.startsWith('reroll:'));
   await sendOmen(ctx, getRandomPalette(new Set(paletteHistory)), { deleteMessage: shouldDelete });
 });
 
 bot.action(/^reroll:(.+)$/, async (ctx) => {
   await ctx.answerCbQuery('Знамение изменилось…');
+  track(ctx.from.id, 'reroll');
   const paletteId = ctx.match[1];
   const state     = session.get(ctx.from.id) ?? {};
   const palette   = state.palette ?? getPaletteById(paletteId) ?? getRandomPalette();
@@ -139,79 +145,114 @@ bot.action(/^reroll:(.+)$/, async (ctx) => {
 bot.command('create_palette', async (ctx) => {
   const last = paletteCooldown.get(ctx.from.id) ?? 0;
   if (Date.now() - last < PALETTE_COOLDOWN_MS) {
+    track(ctx.from.id, 'cooldown_hit');
     await ctx.reply('Чернила предсказания ещё не высохли. Возвращайся через минуту.');
     return;
   }
+  track(ctx.from.id, 'create_palette_start');
   userFlows.set(ctx.from.id, { step: 'awaiting_image' });
-  await ctx.reply('✦ Пришли изображение — я извлеку из него палитру ✦');
+  await ctx.reply('✦ Пришли изображение — Оракул извлечет из него палитру ✦');
 });
 
 bot.action('create_palette', async (ctx) => {
   await ctx.answerCbQuery();
   const last = paletteCooldown.get(ctx.from.id) ?? 0;
   if (Date.now() - last < PALETTE_COOLDOWN_MS) {
-    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайся через минуту.');
+    track(ctx.from.id, 'cooldown_hit');
+    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
     return;
   }
+  track(ctx.from.id, 'create_palette_start');
   userFlows.set(ctx.from.id, { step: 'awaiting_image' });
-  await ctx.reply('✦ Пришли изображение — я извлеку из него палитру ✦');
+  await ctx.reply('✦ Пришлите изображение — Оракул извлечет из него палитру ✦');
 });
 
 bot.on('photo', async (ctx) => {
   const flow = userFlows.get(ctx.from.id);
   if (!flow || flow.step !== 'awaiting_image') return;
 
-  const photo    = ctx.message.photo[ctx.message.photo.length - 1];
-  const fileLink = await ctx.telegram.getFileLink(photo.file_id);
-  const tmpImg   = path.join(os.tmpdir(), `oracle_in_${ctx.from.id}_${Date.now()}.jpg`);
+  const photo  = ctx.message.photo[ctx.message.photo.length - 1];
+  const tmpImg = path.join(os.tmpdir(), `oracle_in_${ctx.from.id}_${Date.now()}.jpg`);
 
   try {
+    const fileLink = await ctx.telegram.getFileLink(photo.file_id);
     await downloadFile(String(fileLink), tmpImg);
   } catch (err) {
     console.error('[bot] photo download failed:', err.message);
+    track(ctx.from.id, 'photo_failed');
     userFlows.delete(ctx.from.id);
-    await ctx.reply('Не удалось получить картинку. Попробуй ещё раз.');
+    await ctx.reply('Оракул не смог увидеть ваш образ. Попробуйте ещё раз.');
     return;
   }
 
+  track(ctx.from.id, 'photo_uploaded');
   userFlows.set(ctx.from.id, { step: 'awaiting_author', imagePath: tmpImg });
-  await ctx.reply('✦ Назови своё имя ✦');
+  await ctx.reply('✦ Назовите своё имя ✦');
 });
 
-bot.on('text', async (ctx) => {
+bot.on('text', async (ctx, next) => {
   const flow = userFlows.get(ctx.from.id);
-  if (!flow) return;
+  if (!flow) return next();
 
   if (flow.step === 'awaiting_author') {
     const authorName = ctx.message.text;
+
+    if (containsProfanity(authorName)) {
+      await ctx.reply('Оракул отверг это имя. Выберите другое.');
+      return;
+    }
+
     userFlows.delete(ctx.from.id);
 
     const outputPath = path.join(os.tmpdir(), `oracle_out_${ctx.from.id}_${Date.now()}.png`);
     const waiting    = await ctx.reply('Оракул читает цвета…');
+    let generated    = false;
 
     try {
+      const t0 = Date.now();
       await generateUserPalette(flow.imagePath, 'The Palette Oracle', outputPath);
+      generated = true;
       const { text: lore, typeName } = generateLore(new Set());
       const imageBuffer = await renderPaletteCard({ image: outputPath }, lore, typeName, authorName);
       await ctx.replyWithPhoto(
         { source: imageBuffer },
         {
-          caption: `✦ ${typeName} ✦\n${lore}`,
+          caption: `— ${typeName} —\n${lore}`,
           ...Markup.inlineKeyboard([
             [Markup.button.callback('✦ Открыть знамение ✦',     'new_omen')],
             [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
           ]),
         },
       );
+      track(ctx.from.id, 'palette_generated', { durationMs: Date.now() - t0 });
       paletteCooldown.set(ctx.from.id, Date.now());
     } catch (err) {
       console.error('[bot] generateUserPalette failed:', err.message);
-      await ctx.reply('Связь с Оракулом потеряна…\nПопробуй чуть позже ещё раз.');
+      track(ctx.from.id, 'palette_failed');
+      await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
     } finally {
-      try { fs.unlinkSync(flow.imagePath); } catch {}
-      try { fs.unlinkSync(outputPath);     } catch {}
+      try { fs.unlinkSync(flow.imagePath);           } catch {}
+      if (generated) try { fs.unlinkSync(outputPath); } catch {}
       try { await ctx.telegram.deleteMessage(ctx.chat.id, waiting.message_id); } catch {}
     }
+  }
+});
+
+// ── admin stats ───────────────────────────────────────────────────────────────
+
+bot.command('stats', async (ctx) => {
+  if (!ADMIN_ID || ctx.from.id !== ADMIN_ID) return;
+  try {
+    const text = buildStats();
+    // Telegram message limit is 4096 chars
+    if (text.length <= 4096) {
+      await ctx.reply(text);
+    } else {
+      await ctx.reply(text.slice(0, 4090) + '\n…');
+    }
+  } catch (err) {
+    console.error('[stats] error:', err.message);
+    await ctx.reply('Ошибка при сборе статистики: ' + err.message);
   }
 });
 
