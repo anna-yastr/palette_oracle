@@ -4,7 +4,6 @@ const WHITELIST = require('./profanity_whitelist');
 const LATIN_MAP = {
   'a': 'а', 'e': 'е', 'o': 'о', 'p': 'р', 'c': 'с',
   'x': 'х', 'y': 'у', 'k': 'к', 'b': 'б', 'm': 'м',
-  // digits / symbols used as letter substitutes
   '0': 'о', '@': 'а', '3': 'з', '$': 'с', '4': 'ч',
 };
 
@@ -12,14 +11,16 @@ const LATIN_RE = new RegExp(`[${Object.keys(LATIN_MAP).join('').replace(/[-[\]]/
 
 // ── Banned roots ──────────────────────────────────────────────────────────────
 const RUSSIAN_ROOTS = [
-  'ху', 'пизд', 'пёзд', 'еб', 'ёб', 'бля', 'блят', 'сук', 'муд',
-  'залуп', 'гандон', 'дроч', 'шлюх', 'пидор', 'манд', 'хер',
+  // specific first so they mask before shorter overlapping roots
+  'хуй', 'пизд', 'пёзд', 'ёб', 'ебл', 'еб', 'блят', 'бля',
+  'залуп', 'гандон', 'дроч', 'шлюх', 'пидор', 'педер', 'педр',
+  'манд', 'муд', 'сук', 'хер', 'ху', 'анал',
 ];
 
 const ENGLISH_ROOTS = [
   'fuck', 'fuk', 'shit', 'bitch', 'cunt', 'dick', 'cock',
   'asshole', 'whore', 'slut', 'nigg', 'fagg', 'rape', 'cum',
-  'twat', 'pussy', 'bastard',
+  'twat', 'pussy', 'bastard', 'anal',
 ];
 
 // ── Normalizers ───────────────────────────────────────────────────────────────
@@ -27,7 +28,8 @@ const ENGLISH_ROOTS = [
 function normalizeCyrillic(name) {
   return name
     .toLowerCase()
-    .replace(LATIN_RE, ch => LATIN_MAP[ch])   // map lookalikes to Cyrillic
+    .replace(/[\s_\-.]+/g, '')                // strip separators: е-б → еб
+    .replace(LATIN_RE, ch => LATIN_MAP[ch])   // map lookalikes: x→х, y→у
     .replace(/[^а-яё]/g, '')                   // strip remaining non-Cyrillic
     .replace(/(.)\1+/g, '$1');                 // collapse repeats: хуууй → хуй
 }
@@ -35,14 +37,14 @@ function normalizeCyrillic(name) {
 function normalizeLatin(name) {
   return name
     .toLowerCase()
+    .replace(/[\s_\-.]+/g, '')                // strip separators
     .replace(/[^a-z]/g, '')                    // strip non-Latin
-    .replace(/(.)\1+/g, '$1');                 // collapse repeats: fuuuck → fuck
+    .replace(/(.)\1+/g, '$1');                 // collapse repeats
 }
 
 // ── Pre-normalise at load time ────────────────────────────────────────────────
 const CYRILLIC_WHITELIST = WHITELIST.ru.map(normalizeCyrillic);
 const LATIN_WHITELIST    = WHITELIST.en.map(normalizeLatin);
-// Normalize English roots too so collapsed inputs still match (nigg→nig, pussy→pusy)
 const LATIN_ROOTS_NORM   = ENGLISH_ROOTS.map(normalizeLatin);
 
 // ── Masking helper ────────────────────────────────────────────────────────────
@@ -53,6 +55,20 @@ function maskWhitelist(s, whitelist, minLen) {
     }
   }
   return s;
+}
+
+// ── Hit counter ───────────────────────────────────────────────────────────────
+// Returns true if string contains >= threshold banned roots after masking.
+// 2+ roots = reject immediately (catches compound pseudo-names like "Аналио де Пидеросьён").
+function hasHits(s, roots, threshold = 1) {
+  let hits = 0;
+  for (const root of roots) {
+    if (s.includes(root)) {
+      hits++;
+      if (hits >= threshold) return true;
+    }
+  }
+  return false;
 }
 
 // ── Check functions ───────────────────────────────────────────────────────────
@@ -73,15 +89,19 @@ function checkCyrillic(name) {
     if (latinLen > 0 && s.length / latinLen < 0.5) return false;
   }
 
+  // Whitelist first, then scan — 1 root = reject, but also catch 2+ before masking
+  // covers edge case where two soft roots survive partial masking
+  if (hasHits(s, RUSSIAN_ROOTS, 2)) return true;
   s = maskWhitelist(s, CYRILLIC_WHITELIST, 4);
-  return RUSSIAN_ROOTS.some(root => s.includes(root));
+  return hasHits(s, RUSSIAN_ROOTS, 1);
 }
 
 function checkLatin(name) {
   let s = normalizeLatin(name);
   if (!s) return false;
+  if (hasHits(s, LATIN_ROOTS_NORM, 2)) return true;
   s = maskWhitelist(s, LATIN_WHITELIST, 4);
-  return LATIN_ROOTS_NORM.some(root => s.includes(root));
+  return hasHits(s, LATIN_ROOTS_NORM, 1);
 }
 
 function containsProfanity(name) {

@@ -9,7 +9,6 @@ const { getRandomPalette, getPaletteById } = require('./palettes');
 const { generateLore } = require('./loreGenerator');
 const { renderPaletteCard } = require('./imageRenderer');
 const { track, buildStats, ADMIN_ID } = require('./stats');
-const { containsProfanity } = require('./profanity');
 
 const SRC_DIR     = path.join(__dirname, 'palette_oracle_src');
 const PALETTE_PY  = path.join(SRC_DIR, 'palette_maker.py');
@@ -59,6 +58,21 @@ const paletteCooldown = new Map(); // userId -> timestamp of last completed gene
 
 const PALETTE_COOLDOWN_MS = 60_000;
 
+const ANONYMOUS_NAMES = [
+  'Безымянное дитя',
+  'Дитя пепла',
+  'Дитя сумерек',
+  'Заблудшее дитя',
+  'Дитя звёзд',
+  'Эхо у порога',
+  'Голос из тишины',
+  'Искра в пепле',
+  'Лик без имени',
+  'Око в темноте',
+  'Имя без лица',
+  'Безымянная душа',
+];
+
 function omenKeyboard(paletteId) {
   return Markup.inlineKeyboard([
     [
@@ -80,7 +94,7 @@ async function sendOmen(ctx, palette, { addToPaletteHistory = true, deleteMessag
     imageBuffer = await renderPaletteCard(palette, lore, typeName);
   } catch (err) {
     console.error('[bot] renderPaletteCard failed:', err.message);
-    await ctx.reply('Связь с Оракулом потеряна…\nПопробуй чуть позже ещё раз.');
+    await ctx.reply('Нить предсказания оборвалась.\nПовторите зов.');
     return;
   }
 
@@ -186,56 +200,80 @@ bot.on('photo', async (ctx) => {
   }
 
   track(ctx.from.id, 'photo_uploaded');
-  userFlows.set(ctx.from.id, { step: 'awaiting_author', imagePath: tmpImg });
-  await ctx.reply('✦ Назовите своё имя ✦');
+  userFlows.delete(ctx.from.id);
+
+  const authorName = ctx.from.username
+    ? `@${ctx.from.username}`
+    : ANONYMOUS_NAMES[Math.floor(Math.random() * ANONYMOUS_NAMES.length)];
+
+  const outputPath = path.join(os.tmpdir(), `oracle_out_${ctx.from.id}_${Date.now()}.png`);
+  const waiting    = await ctx.reply('Оракул читает цвета…');
+  let generated    = false;
+
+  try {
+    const t0 = Date.now();
+    await generateUserPalette(tmpImg, 'The Palette Oracle', outputPath);
+    generated = true;
+    const { text: lore, typeName } = generateLore(new Set());
+    const imageBuffer = await renderPaletteCard({ image: outputPath }, lore, typeName, authorName);
+    await ctx.replyWithPhoto(
+      { source: imageBuffer },
+      {
+        caption: `— ${typeName} —\n${lore}`,
+        ...Markup.inlineKeyboard([
+          [Markup.button.callback('✦ Открыть знамение ✦',     'new_omen')],
+          [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
+        ]),
+      },
+    );
+    track(ctx.from.id, 'palette_generated', { durationMs: Date.now() - t0 });
+    paletteCooldown.set(ctx.from.id, Date.now());
+  } catch (err) {
+    console.error('[bot] generateUserPalette failed:', err.message);
+    track(ctx.from.id, 'palette_failed');
+    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
+  } finally {
+    try { fs.unlinkSync(tmpImg);                     } catch {}
+    if (generated) try { fs.unlinkSync(outputPath); } catch {}
+    try { await ctx.telegram.deleteMessage(ctx.chat.id, waiting.message_id); } catch {}
+  }
 });
 
-bot.on('text', async (ctx, next) => {
-  const flow = userFlows.get(ctx.from.id);
-  if (!flow) return next();
+// ── rules ─────────────────────────────────────────────────────────────────────
 
-  if (flow.step === 'awaiting_author') {
-    const authorName = ctx.message.text;
+const RULES_TEXT = `✦ Свод правил и ограничений ✦
 
-    if (containsProfanity(authorName)) {
-      await ctx.reply('Оракул отверг это имя. Выберите другое.');
-      return;
-    }
+Добро пожаловать! Настоящие Правила определяют условия использования бота @ametanami_palette_oracle_bot (далее — Бот) и являются юридическим соглашением между пользователем (далее — Вы) и создателем Бота (@ametanami, далее — Создатель).
 
-    userFlows.delete(ctx.from.id);
+Нажимая кнопку «Старт» или иным образом используя Бот, Вы полностью и безоговорочно соглашаетесь с данными Правилами.
 
-    const outputPath = path.join(os.tmpdir(), `oracle_out_${ctx.from.id}_${Date.now()}.png`);
-    const waiting    = await ctx.reply('Оракул читает цвета…');
-    let generated    = false;
+1. Статус Сервиса и инструментарий
+Бот является некоммерческим творческим инструментом, предназначенным для автоматической генерации цветовых палитр, вдохновляющих текстовых предсказаний и визуальных материалов.
 
-    try {
-      const t0 = Date.now();
-      await generateUserPalette(flow.imagePath, 'The Palette Oracle', outputPath);
-      generated = true;
-      const { text: lore, typeName } = generateLore(new Set());
-      const imageBuffer = await renderPaletteCard({ image: outputPath }, lore, typeName, authorName);
-      await ctx.replyWithPhoto(
-        { source: imageBuffer },
-        {
-          caption: `— ${typeName} —\n${lore}`,
-          ...Markup.inlineKeyboard([
-            [Markup.button.callback('✦ Открыть знамение ✦',     'new_omen')],
-            [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
-          ]),
-        },
-      );
-      track(ctx.from.id, 'palette_generated', { durationMs: Date.now() - t0 });
-      paletteCooldown.set(ctx.from.id, Date.now());
-    } catch (err) {
-      console.error('[bot] generateUserPalette failed:', err.message);
-      track(ctx.from.id, 'palette_failed');
-      await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
-    } finally {
-      try { fs.unlinkSync(flow.imagePath);           } catch {}
-      if (generated) try { fs.unlinkSync(outputPath); } catch {}
-      try { await ctx.telegram.deleteMessage(ctx.chat.id, waiting.message_id); } catch {}
-    }
-  }
+Все изображения и тексты обрабатываются и генерируются Ботом в автоматическом режиме в реальном времени. Создатель Бота не осуществляет предварительную модерацию действий пользователей.
+
+2. Ограничение ответственности (Disclaimer)
+Ответственность за контент: Вся ответственность за содержание материалов, загружаемых в Бот (включая изображения), а также за вводимые текстовые данные (имена файлов, названия палитр) целиком и полностью возлагается на Пользователя.
+
+Позиция Создателя: Создатель Бота не разделяет, не поддерживает и не несет ответственности за смысловую нагрузку, политические, религиозные, этические или любые иные высказывания и визуальные образы, созданные Пользователями с помощью Бота.
+
+Наличие водяных знаков / никнеймов: Наличие на сгенерированном изображении никнейма Создателя указывает исключительно на авторство самого программного инструмента (Бота) и не означает одобрения Создателем того контента, который сгенерировал Пользователь.
+
+3. Правила поведения и запреты
+Пользователям строго запрещено использовать Бот для создания, обработки или распространения контента, который:
+
+— нарушает законодательство (включая призывы к насилию, экстремизм, разжигание ненависти или вражды);
+— нарушает авторские права третьих лиц;
+— содержит материалы порнографического характера или иные неприемлемые изображения;
+— имеет целью оскорбление, травлю или дискредитацию третьих лиц.
+
+4. Права Создателя
+Создатель оставляет за собой право в одностороннем порядке и без объяснения причин ограничить или полностью заблокировать доступ к Боту любому пользователю в случае нарушения данных Правил или при обнаружении подозрительной активности.
+
+Программное обеспечение Бота предоставляется по принципу «как есть» (as is). Создатель не гарантирует бесперебойную работу Бота и не несет ответственности за временные технические сбои.`;
+
+bot.command('rules', async (ctx) => {
+  await ctx.reply(RULES_TEXT);
 });
 
 // ── admin stats ───────────────────────────────────────────────────────────────

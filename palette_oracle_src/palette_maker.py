@@ -273,7 +273,7 @@ def get_dominant_colors(img, n=5, thumb_size=300, min_L=15, max_L=85, min_delta=
         try:
             from sklearn.cluster import KMeans
             n_clusters = min(n, len(lab_filtered))
-            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=3)
             kmeans.fit(lab_filtered)
             result = []
             for cid in range(n_clusters):

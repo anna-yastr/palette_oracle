@@ -114,7 +114,10 @@ function buildStats() {
 
   const photoUploaders = new Set(events.filter(e => e.event === 'photo_uploaded').map(e => e.uid));
   const paletteUsers   = new Set(palettes.map(e => e.uid));
-  const abandoned      = [...photoUploaders].filter(u => !paletteUsers.has(u)).length;
+  const abandoned          = [...photoUploaders].filter(u => !paletteUsers.has(u)).length;
+  const paletteConversion  = photoUploaders.size
+    ? Math.round((paletteUsers.size / photoUploaders.size) * 100)
+    : 0;
 
   const mostCursed  = Object.entries(callsPerUser).sort((a, b) => b[1] - a[1])[0];
   const lastEvent   = events[events.length - 1];
@@ -163,9 +166,10 @@ function buildStats() {
     `Фейлов генерации: ${palFailed}`,
     avgGenMs !== null ? `Ср. время генерации: ${fmtDuration(avgGenMs)}` : '',
     `Бросили процесс: ${abandoned}`,
+    `Конверсия палитры: ${paletteConversion}%`,
     '',
     '☠️ Самый проклятый',
-    mostCursed ? `ID ${mostCursed[0]} — ${mostCursed[1]} призывов` : 'Никто',
+    mostCursed ? `${mostCursed[1]} призывов` : 'Никто',
     '',
     `(событий с запуска: ${events.length})`,
   );
