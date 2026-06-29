@@ -156,20 +156,7 @@ bot.action(/^reroll:(.+)$/, async (ctx) => {
 
 // ── palette creation flow ─────────────────────────────────────────────────────
 
-bot.command('create_palette', async (ctx) => {
-  const last = paletteCooldown.get(ctx.from.id) ?? 0;
-  if (Date.now() - last < PALETTE_COOLDOWN_MS) {
-    track(ctx.from.id, 'cooldown_hit');
-    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайся через минуту.');
-    return;
-  }
-  track(ctx.from.id, 'create_palette_start');
-  userFlows.set(ctx.from.id, { step: 'awaiting_image' });
-  await ctx.reply('✦ Пришли изображение — Оракул извлечет из него палитру ✦');
-});
-
-bot.action('create_palette', async (ctx) => {
-  await ctx.answerCbQuery();
+async function startPaletteCreation(ctx) {
   const last = paletteCooldown.get(ctx.from.id) ?? 0;
   if (Date.now() - last < PALETTE_COOLDOWN_MS) {
     track(ctx.from.id, 'cooldown_hit');
@@ -178,7 +165,14 @@ bot.action('create_palette', async (ctx) => {
   }
   track(ctx.from.id, 'create_palette_start');
   userFlows.set(ctx.from.id, { step: 'awaiting_image' });
-  await ctx.reply('✦ Пришлите изображение — Оракул извлечет из него палитру ✦');
+  await ctx.reply('✦ Пришлите изображение — Оракул извлечёт из него палитру ✦');
+}
+
+bot.command('create_palette', (ctx) => startPaletteCreation(ctx));
+
+bot.action('create_palette', async (ctx) => {
+  await ctx.answerCbQuery();
+  await startPaletteCreation(ctx);
 });
 
 bot.on('photo', async (ctx) => {
@@ -195,6 +189,7 @@ bot.on('photo', async (ctx) => {
     console.error('[bot] photo download failed:', err.message);
     track(ctx.from.id, 'photo_failed');
     userFlows.delete(ctx.from.id);
+    try { fs.unlinkSync(tmpImg); } catch {}
     await ctx.reply('Оракул не смог увидеть ваш образ. Попробуйте ещё раз.');
     return;
   }

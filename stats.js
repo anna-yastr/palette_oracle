@@ -114,8 +114,8 @@ function buildStats() {
 
   const photoUploaders = new Set(events.filter(e => e.event === 'photo_uploaded').map(e => e.uid));
   const paletteUsers   = new Set(palettes.map(e => e.uid));
-  const abandoned          = [...photoUploaders].filter(u => !paletteUsers.has(u)).length;
-  const paletteConversion  = photoUploaders.size
+  const abandoned         = [...photoUploaders].filter(u => !paletteUsers.has(u)).length;
+  const paletteConversion = photoUploaders.size
     ? Math.round((paletteUsers.size / photoUploaders.size) * 100)
     : 0;
 
