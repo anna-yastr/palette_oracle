@@ -24,9 +24,12 @@ function downloadFile(url, destPath) {
   });
 }
 
+const PYTHON = process.env.PYTHON_CMD
+  ?? (process.platform === 'win32' ? 'py' : 'python3');
+
 function generateUserPalette(imagePath, title, outputPath) {
   return new Promise((resolve, reject) => {
-    const proc = spawn('py', [
+    const proc = spawn(PYTHON, [
       PALETTE_PY,
       '--input',  imagePath,
       '--output', outputPath,
