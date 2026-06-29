@@ -17,6 +17,12 @@ function downloadFile(url, destPath) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destPath);
     https.get(url, (res) => {
+      if (res.statusCode !== 200) {
+        res.resume();
+        file.destroy();
+        reject(new Error(`HTTP ${res.statusCode}`));
+        return;
+      }
       res.pipe(file);
       file.on('finish', () => file.close(resolve));
       file.on('error', reject);
@@ -27,6 +33,8 @@ function downloadFile(url, destPath) {
 const PYTHON = process.env.PYTHON_CMD
   ?? (process.platform === 'win32' ? 'py' : 'python3');
 
+const GENERATION_TIMEOUT_MS = 30_000;
+
 function generateUserPalette(imagePath, title, outputPath) {
   return new Promise((resolve, reject) => {
     const proc = spawn(PYTHON, [
@@ -35,13 +43,27 @@ function generateUserPalette(imagePath, title, outputPath) {
       '--output', outputPath,
       '--title',  title,
     ], { cwd: SRC_DIR });
-    let stderr = '';
+
+    let stderr  = '';
+    let settled = false;
+    const settle = (fn, val) => { if (!settled) { settled = true; fn(val); } };
+
+    const timer = setTimeout(() => {
+      proc.kill('SIGKILL');
+      settle(reject, new Error('timeout'));
+    }, GENERATION_TIMEOUT_MS);
+
     proc.stderr.on('data', d => { stderr += d.toString(); });
-    proc.on('close', code => {
-      if (code !== 0) reject(new Error(stderr || 'Python script failed'));
-      else resolve();
+    proc.on('close', (code, signal) => {
+      clearTimeout(timer);
+      if (signal === 'SIGKILL') return; // already rejected by timer
+      if (code !== 0) settle(reject, new Error(stderr || 'Python script failed'));
+      else settle(resolve);
     });
-    proc.on('error', reject);
+    proc.on('error', err => {
+      clearTimeout(timer);
+      settle(reject, err);
+    });
   });
 }
 
@@ -60,6 +82,21 @@ const userFlows       = new Map(); // palette-creation conversation state per us
 const paletteCooldown = new Map(); // userId -> timestamp of last completed generation
 
 const PALETTE_COOLDOWN_MS = 60_000;
+
+const MAX_CONCURRENT       = 3;
+const GLOBAL_RATE_LIMIT    = 40;
+const GLOBAL_RATE_WINDOW   = 5 * 60_000; // 5 minutes
+
+let activeGenerations = 0;
+const generationTimestamps = []; // sliding window for global rate limit
+
+function isGlobalRateLimited() {
+  const cutoff = Date.now() - GLOBAL_RATE_WINDOW;
+  while (generationTimestamps.length && generationTimestamps[0] < cutoff) {
+    generationTimestamps.shift();
+  }
+  return generationTimestamps.length >= GLOBAL_RATE_LIMIT;
+}
 
 const ANONYMOUS_NAMES = [
   'Безымянное дитя',
@@ -182,6 +219,19 @@ bot.on('photo', async (ctx) => {
   const flow = userFlows.get(ctx.from.id);
   if (!flow || flow.step !== 'awaiting_image') return;
 
+  // Global rate limit: 40 palettes per 5 minutes across all users
+  if (isGlobalRateLimited()) {
+    await ctx.reply('Храм переполнен. Энергия Оракула исчерпана — возвращайтесь позже.');
+    return;
+  }
+
+  // Concurrency limit: max 3 simultaneous Python processes
+  if (activeGenerations >= MAX_CONCURRENT) {
+    await ctx.reply('Туман будущего сгущается. Оракулу нужно время, чтобы вглядеться в вашу нить.');
+    return;
+  }
+  activeGenerations++;
+
   const photo  = ctx.message.photo[ctx.message.photo.length - 1];
   const tmpImg = path.join(os.tmpdir(), `oracle_in_${ctx.from.id}_${Date.now()}.jpg`);
 
@@ -193,6 +243,7 @@ bot.on('photo', async (ctx) => {
     track(ctx.from.id, 'photo_failed');
     userFlows.delete(ctx.from.id);
     try { fs.unlinkSync(tmpImg); } catch {}
+    activeGenerations--;
     await ctx.reply('Оракул не смог увидеть ваш образ. Попробуйте ещё раз.');
     return;
   }
@@ -206,12 +257,10 @@ bot.on('photo', async (ctx) => {
 
   const outputPath = path.join(os.tmpdir(), `oracle_out_${ctx.from.id}_${Date.now()}.png`);
   const waiting    = await ctx.reply('Оракул читает цвета…');
-  let generated    = false;
-
+  generationTimestamps.push(Date.now());
   try {
     const t0 = Date.now();
     await generateUserPalette(tmpImg, 'The Palette Oracle', outputPath);
-    generated = true;
     const { text: lore, typeName } = generateLore(new Set());
     const imageBuffer = await renderPaletteCard({ image: outputPath }, lore, typeName, authorName);
     await ctx.replyWithPhoto(
@@ -227,31 +276,45 @@ bot.on('photo', async (ctx) => {
     track(ctx.from.id, 'palette_generated', { durationMs: Date.now() - t0 });
     paletteCooldown.set(ctx.from.id, Date.now());
   } catch (err) {
-    console.error('[bot] generateUserPalette failed:', err.message);
     track(ctx.from.id, 'palette_failed');
-    await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
+    if (err.message === 'timeout') {
+      console.error('[bot] generateUserPalette timeout');
+      await ctx.reply('Нить знамения истончилась и оборвалась. Повторите зов.');
+    } else {
+      console.error('[bot] generateUserPalette failed:', err.message);
+      await ctx.reply('Чернила предсказания ещё не высохли. Возвращайтесь через минуту.');
+    }
   } finally {
+    activeGenerations--;
     try { fs.unlinkSync(tmpImg);                     } catch {}
-    if (generated) try { fs.unlinkSync(outputPath); } catch {}
+    try { fs.unlinkSync(outputPath); } catch {}
     try { await ctx.telegram.deleteMessage(ctx.chat.id, waiting.message_id); } catch {}
   }
+});
+
+bot.on(['video', 'animation', 'document', 'sticker', 'voice', 'video_note'], async (ctx) => {
+  const flow = userFlows.get(ctx.from.id);
+  if (!flow || flow.step !== 'awaiting_image') return;
+  await ctx.reply('Вы принесли ложные дары. Оракул ждёт изображения.');
 });
 
 // ── rules ─────────────────────────────────────────────────────────────────────
 
 const RULES_TEXT = `✦ Свод правил и ограничений ✦
 
-Добро пожаловать! Настоящие Правила определяют условия использования бота @ametanami_palette_oracle_bot (далее — Бот) и являются юридическим соглашением между пользователем (далее — Вы) и создателем Бота (@ametanami, далее — Создатель).
+Добро пожаловать! Настоящие Правила определяют условия использования бота @ametanami_palette_oracle_bot (далее — Бот) и являются соглашением между пользователем (далее — Вы) и создателем Бота (@ametanami, далее — Создатель).
 
 Нажимая кнопку «Старт» или иным образом используя Бот, Вы полностью и безоговорочно соглашаетесь с данными Правилами.
 
-1. Статус Сервиса и инструментарий
-Бот является некоммерческим творческим инструментом, предназначенным для автоматической генерации цветовых палитр, вдохновляющих текстовых предсказаний и визуальных материалов.
+1. Статус Бота и инструментарий
+Бот является некоммерческим творческим инструментом, предназначенным для автоматической генерации цветовых палитр, вдохновляющих текстовых предсказаний и визуальных материалов. 
+
+Все текстовые предсказания являются художественными и развлекательными элементами и не должны восприниматься как фактические рекомендации, советы или гарантии.
 
 Все изображения и тексты обрабатываются и генерируются Ботом в автоматическом режиме в реальном времени. Создатель Бота не осуществляет предварительную модерацию действий пользователей.
 
 2. Ограничение ответственности (Disclaimer)
-Ответственность за контент: Вся ответственность за содержание материалов, загружаемых в Бот (включая изображения), а также за вводимые текстовые данные (имена файлов, названия палитр) целиком и полностью возлагается на Пользователя.
+Ответственность за контент: Пользователь самостоятельно несёт полную ответственность за содержание загружаемых материалов, вводимые текстовые данные и гарантирует наличие прав на их использование.
 
 Позиция Создателя: Создатель Бота не разделяет, не поддерживает и не несет ответственности за смысловую нагрузку, политические, религиозные, этические или любые иные высказывания и визуальные образы, созданные Пользователями с помощью Бота.
 
@@ -268,7 +331,11 @@ const RULES_TEXT = `✦ Свод правил и ограничений ✦
 4. Права Создателя
 Создатель оставляет за собой право в одностороннем порядке и без объяснения причин ограничить или полностью заблокировать доступ к Боту любому пользователю в случае нарушения данных Правил или при обнаружении подозрительной активности.
 
-Программное обеспечение Бота предоставляется по принципу «как есть» (as is). Создатель не гарантирует бесперебойную работу Бота и не несет ответственности за временные технические сбои.`;
+Программное обеспечение Бота предоставляется по принципу «как есть» (as is). Создатель не гарантирует бесперебойную работу Бота и не несет ответственности за временные технические сбои.
+
+5. Обработка данных
+Загружаемые изображения и пользовательские данные используются исключительно для временной обработки и генерации результата. Создатель Бота не хранит исходные изображения, введённые пользователем данные и созданные результаты после завершения обработки.`;
+
 
 bot.command('rules', async (ctx) => {
   await ctx.reply(RULES_TEXT);
