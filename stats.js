@@ -1,14 +1,99 @@
 const ADMIN_ID = process.env.ADMIN_ID ? Number(process.env.ADMIN_ID) : null;
 
-const SESSION_GAP = 15 * 60 * 1000; // 15 min gap = new session
+const SESSION_GAP = 15 * 60_000;
+const EVENTS_TTL  = 7 * 24 * 3600_000;
+const DAY         = 86_400_000;
 
-// ── In-memory event log (resets on restart) ───────────────────────────────────
+// ── Permanent aggregates (never pruned, reset only on restart) ────────────────
+const agg = {
+  omens:             0,
+  rerolls:           0,
+  newOmens:          0,
+  palettes:          0,
+  cooldowns:         0,
+  photoFailed:       0,
+  palFailed:         0,
+  photoUploaders:    new Set(),
+  paletteUsers:      new Set(),
+  genDurSum:         0,
+  genDurCount:       0,
+  rerollDeltaSum:    0,
+  rerollDeltaCount:  0,
+  newOmenDeltaSum:   0,
+  newOmenDeltaCount: 0,
+};
+
+// ── Per-user permanent metadata ───────────────────────────────────────────────
+const userMeta = new Map(); // uid -> { firstSeen, activeDays: Set<dayIdx>, lastEvent, lastEventTs }
+
+function getMeta(uid) {
+  if (!userMeta.has(uid)) {
+    userMeta.set(uid, { firstSeen: Date.now(), activeDays: new Set(), lastEvent: null, lastEventTs: 0 });
+  }
+  return userMeta.get(uid);
+}
+
+// ── Sliding-window events (7 days) ────────────────────────────────────────────
 const events = [];
+
+function pruneEvents() {
+  const cutoff = Date.now() - EVENTS_TTL;
+  let i = 0;
+  while (i < events.length && events[i].ts < cutoff) i++;
+  if (i > 0) events.splice(0, i);
+}
 
 // ── Write ─────────────────────────────────────────────────────────────────────
 
 function track(userId, event, extra = {}) {
-  events.push({ ts: Date.now(), uid: String(userId), event, ...extra });
+  const ts  = Date.now();
+  const uid = String(userId);
+
+  const meta = getMeta(uid);
+  meta.activeDays.add(Math.floor(ts / DAY));
+
+  switch (event) {
+    case 'omen_shown':
+      agg.omens++;
+      break;
+    case 'reroll':
+      agg.rerolls++;
+      if (meta.lastEvent === 'omen_shown') {
+        agg.rerollDeltaSum += ts - meta.lastEventTs;
+        agg.rerollDeltaCount++;
+      }
+      break;
+    case 'new_omen':
+      agg.newOmens++;
+      if (meta.lastEvent === 'omen_shown') {
+        agg.newOmenDeltaSum += ts - meta.lastEventTs;
+        agg.newOmenDeltaCount++;
+      }
+      break;
+    case 'cooldown_hit':
+      agg.cooldowns++;
+      break;
+    case 'photo_uploaded':
+      agg.photoUploaders.add(uid);
+      break;
+    case 'palette_generated':
+      agg.palettes++;
+      agg.paletteUsers.add(uid);
+      if (extra.durationMs) { agg.genDurSum += extra.durationMs; agg.genDurCount++; }
+      break;
+    case 'photo_failed':
+      agg.photoFailed++;
+      break;
+    case 'palette_failed':
+      agg.palFailed++;
+      break;
+  }
+
+  meta.lastEvent   = event;
+  meta.lastEventTs = ts;
+
+  pruneEvents();
+  events.push({ ts, uid, event, ...extra });
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -22,38 +107,23 @@ function fmtDuration(ms) {
 
 // ── Report ────────────────────────────────────────────────────────────────────
 
-const DAY = 86_400_000;
-
 function buildStats() {
-  if (!events.length) return '— Оракул молчал с начала времён —';
+  if (!userMeta.size) return '— Оракул молчал с начала времён —';
 
   const todayStart = new Date().setHours(0, 0, 0, 0);
 
-  // Group and sort events per user
-  const byUser = {};
-  for (const e of events) {
-    (byUser[e.uid] ??= []).push(e);
-  }
-  for (const uid of Object.keys(byUser)) {
-    byUser[uid].sort((a, b) => a.ts - b.ts);
-  }
-
-  // ── Activity ──────────────────────────────────────────────────────────────
-  const firstSeen    = {};
-  const callsPerUser = {};
-  const userDays     = {};
-  for (const e of events) {
-    if (!firstSeen[e.uid] || e.ts < firstSeen[e.uid]) firstSeen[e.uid] = e.ts;
-    callsPerUser[e.uid] = (callsPerUser[e.uid] ?? 0) + 1;
-    (userDays[e.uid] ??= new Set()).add(Math.floor(e.ts / DAY));
-  }
-
-  const totalUsers = Object.keys(firstSeen).length;
-  const newToday   = Object.values(firstSeen).filter(t => t >= todayStart).length;
-  const retained   = Object.values(userDays).filter(s => s.size > 1).length;
+  // ── Activity (permanent userMeta) ─────────────────────────────────────────
+  const totalUsers = userMeta.size;
+  const newToday   = [...userMeta.values()].filter(m => m.firstSeen >= todayStart).length;
+  const retained   = [...userMeta.values()].filter(m => m.activeDays.size > 1).length;
   const active24h  = new Set(events.filter(e => e.ts > Date.now() - DAY).map(e => e.uid)).size;
+  const avgOmens   = (agg.omens / totalUsers).toFixed(1);
 
-  // Session depth: gap > 15 min = new session
+  // ── Session depth (7-day events window) ───────────────────────────────────
+  const byUser = {};
+  for (const e of events) (byUser[e.uid] ??= []).push(e);
+  for (const uid of Object.keys(byUser)) byUser[uid].sort((a, b) => a.ts - b.ts);
+
   let totalSessions = 0;
   let totalDepth    = 0;
   for (const evs of Object.values(byUser)) {
@@ -68,65 +138,47 @@ function buildStats() {
     totalSessions++;
     totalDepth += evs.length - sessionStart;
   }
-  const avgSessionDepth = totalSessions > 0
-    ? (totalDepth / totalSessions).toFixed(1)
-    : '—';
+  const avgSessionDepth = totalSessions > 0 ? (totalDepth / totalSessions).toFixed(1) : '—';
 
-  // ── Omen stats ────────────────────────────────────────────────────────────
-  const omens        = events.filter(e => e.event === 'omen_shown');
+  // ── Types & phrases (7-day window) ────────────────────────────────────────
   const typeCounts   = {};
   const phraseCounts = {};
-  const omensPerUser = {};
-  for (const e of omens) {
+  for (const e of events.filter(e => e.event === 'omen_shown')) {
     if (e.typeName) typeCounts[e.typeName] = (typeCounts[e.typeName] ?? 0) + 1;
     if (e.phrase)   phraseCounts[e.phrase] = (phraseCounts[e.phrase] ?? 0) + 1;
-    omensPerUser[e.uid] = (omensPerUser[e.uid] ?? 0) + 1;
   }
-  const avgOmens    = totalUsers
-    ? (Object.values(omensPerUser).reduce((a, b) => a + b, 0) / totalUsers).toFixed(1)
-    : 0;
   const typesSorted = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
   const topPhrase   = Object.entries(phraseCounts).sort((a, b) => b[1] - a[1])[0];
 
-  // Time-to-reroll: omen_shown → reroll delta per user
-  const rerollDeltas = [];
-  for (const evs of Object.values(byUser)) {
-    for (let i = 0; i < evs.length - 1; i++) {
-      if (evs[i].event === 'omen_shown' && evs[i + 1].event === 'reroll') {
-        rerollDeltas.push(evs[i + 1].ts - evs[i].ts);
-      }
-    }
+  // ── Most cursed (7-day window) ────────────────────────────────────────────
+  const callsPerUser = {};
+  for (const e of events) callsPerUser[e.uid] = (callsPerUser[e.uid] ?? 0) + 1;
+  const mostCursed = Object.entries(callsPerUser).sort((a, b) => b[1] - a[1])[0];
+
+  // ── Averages (permanent agg) ──────────────────────────────────────────────
+  const avgRerollMs  = agg.rerollDeltaCount
+    ? Math.round(agg.rerollDeltaSum / agg.rerollDeltaCount) : null;
+  const avgNewOmenMs = agg.newOmenDeltaCount
+    ? Math.round(agg.newOmenDeltaSum / agg.newOmenDeltaCount) : null;
+  const avgGenMs     = agg.genDurCount
+    ? Math.round(agg.genDurSum / agg.genDurCount) : null;
+
+  // ── Conversion (permanent agg) ────────────────────────────────────────────
+  const abandoned         = [...agg.photoUploaders].filter(u => !agg.paletteUsers.has(u)).length;
+  const paletteConversion = agg.photoUploaders.size
+    ? Math.round((agg.paletteUsers.size / agg.photoUploaders.size) * 100) : 0;
+
+  // ── Last event ────────────────────────────────────────────────────────────
+  const lastEvent = events[events.length - 1];
+  let lastAgoStr  = '—';
+  if (lastEvent) {
+    const ms = Date.now() - lastEvent.ts;
+    lastAgoStr = ms < 60_000
+      ? `${Math.round(ms / 1000)} сек назад`
+      : ms < 3_600_000
+        ? `${Math.round(ms / 60_000)} мин назад`
+        : `${Math.round(ms / 3_600_000)} ч назад`;
   }
-  const avgRerollMs = rerollDeltas.length
-    ? Math.round(rerollDeltas.reduce((a, b) => a + b, 0) / rerollDeltas.length)
-    : null;
-
-  const rerolls = events.filter(e => e.event === 'reroll').length;
-
-  // ── Technical ─────────────────────────────────────────────────────────────
-  const cooldowns   = events.filter(e => e.event === 'cooldown_hit').length;
-  const palettes    = events.filter(e => e.event === 'palette_generated');
-  const palFailed   = events.filter(e => e.event === 'palette_failed').length;
-  const photoFailed = events.filter(e => e.event === 'photo_failed').length;
-  const avgGenMs    = palettes.length
-    ? Math.round(palettes.reduce((a, e) => a + (e.durationMs ?? 0), 0) / palettes.length)
-    : null;
-
-  const photoUploaders = new Set(events.filter(e => e.event === 'photo_uploaded').map(e => e.uid));
-  const paletteUsers   = new Set(palettes.map(e => e.uid));
-  const abandoned         = [...photoUploaders].filter(u => !paletteUsers.has(u)).length;
-  const paletteConversion = photoUploaders.size
-    ? Math.round((paletteUsers.size / photoUploaders.size) * 100)
-    : 0;
-
-  const mostCursed  = Object.entries(callsPerUser).sort((a, b) => b[1] - a[1])[0];
-  const lastEvent   = events[events.length - 1];
-  const lastAgoMs   = Date.now() - lastEvent.ts;
-  const lastAgoStr  = lastAgoMs < 60_000
-    ? `${Math.round(lastAgoMs / 1000)} сек назад`
-    : lastAgoMs < 3_600_000
-      ? `${Math.round(lastAgoMs / 60_000)} мин назад`
-      : `${Math.round(lastAgoMs / 3_600_000)} ч назад`;
 
   // ── Build output ──────────────────────────────────────────────────────────
   const out = [
@@ -140,38 +192,40 @@ function buildStats() {
     `Вернулись (2+ дня): ${retained}`,
     `Ср. знамений на душу: ${avgOmens}`,
     `Ср. глубина сессии: ${avgSessionDepth} событий`,
-    `Упёрлись в кулдаун: ${cooldowns}`,
+    `Упёрлись в кулдаун: ${agg.cooldowns}`,
     '',
     '🔮 Оракул',
-    `Знамений открыто: ${omens.length}`,
-    `Перечитано (reroll): ${rerolls}`,
-    avgRerollMs !== null ? `Ср. время до перечтения: ${fmtDuration(avgRerollMs)}` : '',
-    `Создано палитр: ${palettes.length}`,
+    `Знамений открыто: ${agg.omens}`,
+    `Перечитано (reroll): ${agg.rerolls}`,
+    avgRerollMs  !== null ? `Ср. время до перечтения: ${fmtDuration(avgRerollMs)}`      : '',
+    `Узрели иное (new card): ${agg.newOmens}`,
+    avgNewOmenMs !== null ? `Ср. время до видения иного: ${fmtDuration(avgNewOmenMs)}`  : '',
+    `Создано палитр: ${agg.palettes}`,
   ];
 
   if (typesSorted.length) {
-    out.push('', 'Типы предсказаний:');
+    out.push('', 'Типы предсказаний (7 дн.):');
     for (const [t, c] of typesSorted) out.push(`  ${t}: ${c}`);
   }
 
   if (topPhrase) {
     const short = topPhrase[0].length > 70 ? topPhrase[0].slice(0, 67) + '…' : topPhrase[0];
-    out.push('', `Самое частое пророчество (${topPhrase[1]}×):`, `  "${short}"`);
+    out.push('', `Самое частое пророчество за 7 дн. (${topPhrase[1]}×):`, `  "${short}"`);
   }
 
   out.push(
     '',
     '⚙️ Техника',
-    `Ошибок загрузки фото: ${photoFailed}`,
-    `Фейлов генерации: ${palFailed}`,
+    `Ошибок загрузки фото: ${agg.photoFailed}`,
+    `Фейлов генерации: ${agg.palFailed}`,
     avgGenMs !== null ? `Ср. время генерации: ${fmtDuration(avgGenMs)}` : '',
     `Бросили процесс: ${abandoned}`,
     `Конверсия палитры: ${paletteConversion}%`,
     '',
-    '☠️ Самый проклятый',
+    '☠️ Самый проклятый (7 дн.)',
     mostCursed ? `${mostCursed[1]} призывов` : 'Никто',
     '',
-    `(событий с запуска: ${events.length})`,
+    `(событий за 7 дн.: ${events.length})`,
   );
 
   return out.filter(Boolean).join('\n');

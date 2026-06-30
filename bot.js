@@ -82,6 +82,27 @@ const userFlows       = new Map(); // palette-creation conversation state per us
 const paletteCooldown = new Map(); // userId -> timestamp of last completed generation
 
 const PALETTE_COOLDOWN_MS = 60_000;
+const FLOW_TTL            = 30 * 60_000;
+const MAX_MAP_SIZE        = 15;
+
+function setSession(userId, state) {
+  session.delete(userId);
+  session.set(userId, state);
+  if (session.size > MAX_MAP_SIZE) session.delete(session.keys().next().value);
+}
+
+function setCooldown(userId) {
+  paletteCooldown.delete(userId);
+  paletteCooldown.set(userId, Date.now());
+  if (paletteCooldown.size > MAX_MAP_SIZE) paletteCooldown.delete(paletteCooldown.keys().next().value);
+}
+
+setInterval(() => {
+  const cutoff = Date.now() - FLOW_TTL;
+  for (const [uid, flow] of userFlows) {
+    if (flow.startedAt < cutoff) userFlows.delete(uid);
+  }
+}, 5 * 60_000);
 
 const MAX_CONCURRENT       = 3;
 const GLOBAL_RATE_LIMIT    = 40;
@@ -140,7 +161,7 @@ async function sendOmen(ctx, palette, { addToPaletteHistory = true, deleteMessag
 
   track(ctx.from.id, 'omen_shown', { typeName, phrase: primaryLine });
 
-  session.set(ctx.from.id, {
+  setSession(ctx.from.id, {
     palette,
     paletteHistory: addToPaletteHistory
       ? [...paletteHistory, palette.id].slice(-HISTORY_SIZE)
@@ -178,6 +199,7 @@ bot.command('new_omen', async (ctx) => {
 
 bot.action('new_omen', async (ctx) => {
   await ctx.answerCbQuery();
+  track(ctx.from.id, 'new_omen');
   const { paletteHistory = [] } = session.get(ctx.from.id) ?? {};
   // omen cards carry a reroll button; start and user palette cards do not
   const buttons = ctx.callbackQuery?.message?.reply_markup?.inline_keyboard?.flat() ?? [];
@@ -204,7 +226,7 @@ async function startPaletteCreation(ctx) {
     return;
   }
   track(ctx.from.id, 'create_palette_start');
-  userFlows.set(ctx.from.id, { step: 'awaiting_image' });
+  userFlows.set(ctx.from.id, { step: 'awaiting_image', startedAt: Date.now() });
   await ctx.reply('✦ Пришлите изображение — Оракул извлечёт из него палитру ✦');
 }
 
@@ -218,6 +240,22 @@ bot.action('create_palette', async (ctx) => {
 bot.on('photo', async (ctx) => {
   const flow = userFlows.get(ctx.from.id);
   if (!flow || flow.step !== 'awaiting_image') return;
+
+  if (Date.now() - flow.startedAt > FLOW_TTL) {
+    userFlows.delete(ctx.from.id);
+    await ctx.reply('Оракул пробуждается.');
+    await ctx.replyWithPhoto(
+      { source: path.join(__dirname, 'Oracle.jpg') },
+      {
+        caption: '✦ Глаза Оракула открыты ✦\n\nКаждая палитра несёт знамение.',
+        ...Markup.inlineKeyboard([
+          [Markup.button.callback('✦ Открыть знамение ✦', 'new_omen')],
+          [Markup.button.callback('✦ Создать свою палитру ✦', 'create_palette')],
+        ]),
+      },
+    );
+    return;
+  }
 
   // Global rate limit: 40 palettes per 5 minutes across all users
   if (isGlobalRateLimited()) {
@@ -274,7 +312,7 @@ bot.on('photo', async (ctx) => {
       },
     );
     track(ctx.from.id, 'palette_generated', { durationMs: Date.now() - t0 });
-    paletteCooldown.set(ctx.from.id, Date.now());
+    setCooldown(ctx.from.id);
   } catch (err) {
     track(ctx.from.id, 'palette_failed');
     if (err.message === 'timeout') {
